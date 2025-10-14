@@ -1,0 +1,13 @@
+# Игнорировать всё служебное
+.vs/
+[Ll]ibrary/
+[Tt]emp/
+[Bb]uild*/
+[Ll]ogs/
+obj/
+bin/
+
+# Оставить только проектные данные
+!Assets/
+!ProjectSettings/
+!.gitignore

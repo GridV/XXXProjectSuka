@@ -1,0 +1,45 @@
+{
+    "m_SerializedVersion": "2",
+    "m_Graph": {
+        "m_ObjectId": "f1a6a235-23b8-4bb5-88ad-51c10d929f67",
+        "m_Name": "UI_Glow",
+        "m_Properties": [
+            {
+                "m_Guid": "float_intensity",
+                "m_Name": "Glow_Intensity",
+                "m_Type": "Vector1",
+                "m_Value": 1.0
+            },
+            {
+                "m_Guid": "color_hdr",
+                "m_Name": "Glow_Color",
+                "m_Type": "Color",
+                "m_Value": [1.0, 0.9, 0.5, 1.0],
+                "m_Mode": "HDR"
+            },
+            {
+                "m_Guid": "texture_input",
+                "m_Name": "MainTex",
+                "m_Type": "Texture2D"
+            }
+        ],
+        "m_ActiveOutputs": [
+            {
+                "m_Target": "Universal",
+                "m_MaterialType": "Unlit",
+                "m_SurfaceType": "Transparent",
+                "m_BlendMode": "Alpha"
+            }
+        ],
+        "m_Nodes": [
+            {"m_Type": "SampleTexture2D", "m_Guid": "node_tex", "m_Inputs": ["texture_input"], "m_Outputs": ["RGBA", "A"]},
+            {"m_Type": "Color", "m_Guid": "node_color", "m_Inputs": ["color_hdr"], "m_Outputs": ["Out"]},
+            {"m_Type": "Multiply", "m_Guid": "node_mul1", "m_Inputs": ["node_tex.RGBA", "node_color.Out"], "m_Outputs": ["Out"]},
+            {"m_Type": "OneMinus", "m_Guid": "node_one", "m_Inputs": ["node_tex.A"], "m_Outputs": ["Out"]},
+            {"m_Type": "Multiply", "m_Guid": "node_mul2", "m_Inputs": ["node_one.Out", "node_mul1.Out"], "m_Outputs": ["Out"]},
+            {"m_Type": "Vector1", "m_Guid": "node_float", "m_Inputs": ["float_intensity"], "m_Outputs": ["Out"]},
+            {"m_Type": "Multiply", "m_Guid": "node_mul3", "m_Inputs": ["node_mul2.Out", "node_float.Out"], "m_Outputs": ["Out"]},
+            {"m_Type": "MasterNode", "m_Guid": "node_master", "m_Inputs": ["node_mul3.Out"], "m_Outputs": []}
+        ]
+    }
+}
