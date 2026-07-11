@@ -1,0 +1,4 @@
+FinishSession - switch to finish task and finish session
+BackToTask - back to original task from try to finish question
+FinalDialogue - every task final dialogue
+InitialDialogue - every task initial dialogue.

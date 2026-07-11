@@ -1,0 +1,103 @@
+{
+  "taskId": "EdgeLadderTask",
+  "dialogues": [
+    {
+      "id": "edge_ladder_intro",
+      "npcVariants": [ "Time for real fun. Edge fest!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Let's do'" ],
+          "type": "Positive",
+          "action": "StartTask"
+        },
+        {
+          "id": "opt_2",
+          "variants": [ "No. Boooring!" ],
+          "type": "Negative",
+          "action": "NextDialogue",
+          "nextDialogueId": "dlg_cancel_question"
+        }
+      ]
+    },
+    {
+      "id": "edge_ladder_success",
+      "npcVariants": [ "I want to grant you relief.. But not now!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank You" ],
+          "type": "Positive",
+          "action": "NextTask"
+        },
+        {
+          "id": "opt_2",
+          "variants": [ "Let me finish" ],
+          "type": "Negative",
+          "action": "TryFinish"
+        }
+      ]
+    },
+    {
+      "id": "edge_ladder_slip_1",
+      "npcVariants": [ "You are dirty. Clean yourself... eat it!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank You" ],
+          "type": "Positive",
+          "action": "ContinueTask"
+        }
+      ]
+    },
+    {
+      "id": "edge_ladder_mercy",
+      "npcVariants": [ "Rest For now... And I won't tolerate next one!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Ready" ],
+          "type": "Positive",
+          "action": "ContinueTask"
+        }
+      ]
+    },
+    {
+      "id": "edge_ladder_fail",
+      "npcVariants": [ "You are useless. No rewards for you." ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Sorry" ],
+          "type": "Positive",
+          "action": "CompleteTask"
+        },
+        {
+          "id": "opt_2",
+          "variants": [ "Let me finish" ],
+          "type": "Negative",
+          "action": "TryFinish"
+        }
+      ]
+    },
+    {
+      "id": "dlg_cancel_question",
+      "npcVariants": [ "I'm so sorry to hear that. Do you want to cancel our session?" ],
+      "playerOptions": [
+        {
+          "id": "opt_5",
+          "variants": [ "Yes, cancel it." ],
+          "type": "Negative",
+          "action": "CancelSession"
+        },
+        {
+          "id": "opt_6",
+          "variants": [ "No, let's continue." ],
+          "type": "Positive",
+          "action": "NextDialogue",
+          "nextDialogueId": "InitialDialogue"
+        }
+      ]
+    }
+  ]
+}

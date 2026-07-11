@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8861a0155672741b744feb5e801275, type: 3}
+  m_Name: SimpleGreetingSession
+  m_EditorClassIdentifier: 
+  blueprintId: simple_greeting
+  title: Simple Greeting
+  startChapterId: start
+  flowMode: 0
+  chapters:
+  - chapterId: start
+    title: Greeting
+    goal: Greet the player
+    instructions: Greet the player naturally. Ask how they are feeling today. Provide
+      2-3 simple player response options.
+    transitions:
+    - intentTag: continue
+      nextChapterId: greeting
+    nextChapterId: greeting
+    allowedNextChapterIds: []
+    waitForPlayerResponse: 1
+    allowedCommands:
+    - MoveToNextChapter
+  - chapterId: greeting
+    title: Greeting
+    goal: Greet the player
+    instructions: Greet the player naturally. Ask how they are feeling today. Provide
+      2-3 simple player response options.
+    transitions:
+    - intentTag: player_good
+      nextChapterId: check_in
+    - intentTag: player_tired
+      nextChapterId: check_in
+    nextChapterId: check_in
+    allowedNextChapterIds: []
+    waitForPlayerResponse: 1
+    allowedCommands:
+    - MoveToNextChapter
+  - chapterId: check_in
+    title: Check In
+    goal: Learn how the player feels.
+    instructions: React naturally to the player's answer. Ask one short follow-up
+      question or acknowledge their mood.
+    transitions:
+    - intentTag: continue
+      nextChapterId: ending
+    nextChapterId: ending
+    allowedNextChapterIds: []
+    waitForPlayerResponse: 1
+    allowedCommands:
+    - MoveToNextChapter
+  - chapterId: ending
+    title: Ending
+    goal: Finish the interaction.
+    instructions: Say goodbye politely and end the session.
+    transitions: []
+    nextChapterId: 
+    allowedNextChapterIds: []
+    waitForPlayerResponse: 0
+    allowedCommands:
+    - EndSession

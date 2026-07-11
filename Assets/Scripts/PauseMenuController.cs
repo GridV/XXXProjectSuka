@@ -36,6 +36,12 @@ public class PauseMenuController : MonoBehaviour
     public void BackToMainMenu()
     {
         Time.timeScale = 1f;
+
+        if (TaskManager.Instance != null)
+            Destroy(TaskManager.Instance.gameObject);
+
+        GameContext.Instance.ResetTaskContext();
+
         SceneManager.LoadScene("MainMenuURP");
     }
 

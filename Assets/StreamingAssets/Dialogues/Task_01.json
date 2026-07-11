@@ -1,0 +1,63 @@
+{
+  "taskId": "Task_01",
+  "dialogues": [
+    {
+      "id": "InitialDialogue",
+      "npcVariants": [
+        "We will start with a basic stroke rhythm. Ready?"
+      ],
+      "playerOptions": [
+        {
+          "id": "task01_start",
+          "variants": [ "Yes, let's start.", "I'm ready." ],
+          "type": "Positive",
+          "action": "StartRhythm"
+        },
+        {
+          "id": "task01_cancel",
+          "variants": [ "Not now.", "Maybe later." ],
+          "type": "Negative",
+          "action": "NextDialogue",
+          "nextDialogueId": "dlg_cancel_question"
+        }
+      ]
+    },
+    {
+      "id": "dlg_cancel_question",
+      "npcVariants": [ "I'm so sorry to hear that. Do you want to cancel our session?" ],
+      "playerOptions": [
+        {
+          "id": "opt_5",
+          "variants": [ "Yes, cancel it." ],
+          "type": "Negative",
+          "action": "CancelSession"
+        },
+        {
+          "id": "opt_6",
+          "variants": [ "No, let's continue." ],
+          "type": "Positive",
+          "action": "NextDialogue",
+          "nextDialogueId": "InitialDialogue"
+        }
+      ]
+    },
+    {
+      "id": "FinalDialogue",
+      "npcVariants": [ "thats enough of teasing you. Lets play next task..." ],
+      "playerOptions": [
+        {
+          "id": "opt_5",
+          "variants": [ "Yes, of course" ],
+          "type": "Positive",
+          "action": "NextTask"
+        },
+        {
+          "id": "opt_6",
+          "variants": [ "Please let me finish." ],
+          "type": "Negative",
+          "action": "tryFinish"
+        }
+      ]
+    }
+  ]
+}

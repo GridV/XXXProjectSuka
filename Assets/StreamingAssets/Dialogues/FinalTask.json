@@ -1,0 +1,133 @@
+{
+  "taskId": "FinalTask",
+  "dialogues": [
+    {
+      "id": "FT_Entry",
+      "npcVariants": [ "Now you deserve your reliefe. But it wont be easy!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank you" ],
+          "type": "Positive",
+          "action": "FT_GoClothing"
+        },
+        {
+          "id": "opt_2",
+          "variants": [ "Need go" ],
+          "type": "Negative",
+          "action": "NextDialogue",
+          "nextDialogueId": "FT_EndConfirm"
+        }
+      ]
+    },
+    {
+      "id": "FT_EndConfirm",
+      "npcVariants": [ "I'm so sorry to hear that. Do you want to cancel our session?" ],
+      "playerOptions": [
+        {
+          "id": "opt_5",
+          "variants": [ "Yes, cancel it." ],
+          "type": "Negative",
+          "action": "CancelSession"
+        },
+        {
+          "id": "opt_6",
+          "variants": [ "No, let's continue." ],
+          "type": "Positive",
+          "action": "NextDialogue",
+          "nextDialogueId": "FT_Entry"
+        }
+      ]
+    },
+    {
+      "id": "FT_Clothing",
+      "npcVariants": [ "I let you decide what I take off?" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank You" ],
+          "type": "Positive",
+          "action": "FT_BeginExecution"
+        }
+      ]
+    },
+    {
+      "id": "FT_Final_V1",
+      "npcVariants": [ "You ve beeen such a good boy! I hope i see you again!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank You" ],
+          "type": "Positive",
+          "action": "CancelSession"
+        }
+      ]
+    },
+    {
+      "id": "FT_Final_V2",
+      "npcVariants": [ "You need more training. No worries Im ready for you!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank You" ],
+          "type": "Positive",
+          "action": "CancelSession"
+        }
+      ]
+    },
+    {
+      "id": "FT_Final_V3",
+      "npcVariants": [ "It will bw a good lesson for you. Love to do it again!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank You" ],
+          "type": "Positive",
+          "action": "CancelSession"
+        }
+      ]
+    },
+    {
+      "id": "FT_mercy",
+      "npcVariants": [ "Rest For now... And I won't tolerate next one!" ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Ready" ],
+          "type": "Positive",
+          "action": "ContinueTask"
+        }
+      ]
+    },
+    {
+      "id": "FT_mercy2",
+      "npcVariants": [ "You are too weak. But I still give you chance to finish." ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Thank you" ],
+          "type": "Positive",
+          "action": "ContinueTask"
+        }
+      ]
+    },
+    {
+      "id": "FT_fail",
+      "npcVariants": [ "You are useless. No rewards for you." ],
+      "playerOptions": [
+        {
+          "id": "opt_1",
+          "variants": [ "Sorry" ],
+          "type": "Positive",
+          "action": "CompleteTask"
+        },
+        {
+          "id": "opt_2",
+          "variants": [ "Let me finish" ],
+          "type": "Negative",
+          "action": "TryFinish"
+        }
+      ]
+    }
+  ]
+}

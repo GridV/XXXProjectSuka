@@ -1,0 +1,157 @@
+﻿{
+    "chair": {
+        "Version": "1.10.1822.1",
+        "Scene": {
+            "Name": true,
+            "SupportShaderSelect": false
+        },
+        "Export Directory": "D:/Unity/XXXPROJECT2406/XXXProjectSuka/Assets/Animations/Raw",
+        "Object": {
+            "chair": {
+                "Physics": {},
+                "Meshes": {
+                    "Chair": {
+                        "Materials": {
+                            "Chair": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": false,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    150.0,
+                                    155.0,
+                                    155.0
+                                ],
+                                "Specular Color": [
+                                    229.00001525878907,
+                                    229.00001525878907,
+                                    229.00001525878907
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Metallic": {
+                                        "Texture Path": "",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Base Color": {
+                                        "Texture Path": "./chair.fbm/Chair_Diffuse.jpg",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Roughness": {
+                                        "Texture Path": "",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "MetallicAlpha": {
+                                        "Texture Path": "./textures/chair/chair/Chair/Chair/Chair_MetallicAlpha.png"
+                                    },
+                                    "HDRP": {
+                                        "Texture Path": "./textures/chair/chair/Chair/Chair/Chair_HDRP.png"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "ChairBack": {
+                        "Materials": {
+                            "ChairStick": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": false,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    150.0,
+                                    150.0,
+                                    150.0
+                                ],
+                                "Specular Color": [
+                                    229.00001525878907,
+                                    229.00001525878907,
+                                    229.00001525878907
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Metallic": {
+                                        "Texture Path": "",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Base Color": {
+                                        "Texture Path": "./chair.fbm/ChairStick_Diffuse.jpg",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Roughness": {
+                                        "Texture Path": "",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "MetallicAlpha": {
+                                        "Texture Path": "./textures/chair/chair/ChairBack/ChairStick/ChairStick_MetallicAlpha.png"
+                                    },
+                                    "HDRP": {
+                                        "Texture Path": "./textures/chair/chair/ChairBack/ChairStick/ChairStick_HDRP.png"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

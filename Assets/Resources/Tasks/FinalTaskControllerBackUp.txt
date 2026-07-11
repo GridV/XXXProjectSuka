@@ -1,0 +1,1288 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
+using Random = UnityEngine.Random;
+
+public class FinalTaskController : BaseTaskController
+{
+    private enum Phase
+    {
+        None,
+        Step1_BuildUp,
+        Step1_Cooldown,
+        Step2_V1,
+        Step2_V2_Prep,
+        Step2_V2_Main,
+        Step2_V3_1,
+        Step2_V1_Pause,
+        Step2_V3_2_Prep,
+        Step2_V3_3,
+        Step2_V3_4,
+        FinalDialogue
+    }
+    private enum BackNode
+    {
+        LoopFull,
+        LoopB,
+        LoopF
+    }
+    private enum EndingBranch
+    {
+        Back,
+        Front
+    }
+    #region Animator
+
+    private const string PARAM_SPEED = "EL_Speed";
+    private const string TRG_END = "EL_End";
+    private const string TRG_FORCE_IDLE = "EL_ForceIdle";
+
+    private readonly HashSet<string> cachedStartTriggers = new HashSet<string>();
+    private FinalTaskClothingPanel clothingPanel;
+    #endregion
+
+    #region Context IDs (must match your TaskData inTaskContexts)
+
+    private EndingBranch currentEndingBranch;
+    private float nextAnimSwitchTime;
+    private const float AnimSwitchInterval = 10f;
+
+    private BackNode backNode = BackNode.LoopFull;
+    private bool backAlternateToggle = false;
+
+    // Front branch state
+    private bool frontIsWall = true;
+
+    // branch activity
+    private bool branchActive = false;
+
+    [SerializeField] private float step2EntryUiDelaySeconds = 5f;
+    private Coroutine delayedContextRoutine;
+
+    private const string CTX_STEP1 = "FT_buildup";
+
+    private const string CTX_S2V1 = "FT_S2V1";
+    private const string CTX_S2V2_PREP = "FT_S2V2_Prep";
+    private const string CTX_S2V2_MAIN = "FT_S2V2_Main";
+
+    private const string CTX_S2V1_PAUSE = "FT_S2V1_PAUSE";
+    private const string ACT_GO_V2_PREP = "FT_GoV2Prep";
+
+    private const string CTX_S2V3_1 = "FT_S2V3_1";
+    private const string CTX_S2V3_2 = "FT_S2V3_2";
+    private const string CTX_S2V3_3 = "FT_S2V3_3";
+    private const string CTX_S2V3_4 = "FT_S2V3_4";
+
+    #endregion
+
+    #region Dialogue IDs (must match your FinalTask.json)
+
+    private const string DLG_ENTRY = "FT_Entry";
+    private const string DLG_CLOTHING = "FT_Clothing";
+    private const string DLG_END_CONFIRM = "FT_EndConfirm";
+
+    private const string DLG_FINAL_V1 = "FT_Final_V1";
+    private const string DLG_FINAL_V2 = "FT_Final_V2";
+    private const string DLG_FINAL_V3 = "FT_Final_V3";
+    private Coroutine delayedDialogueRoutine;
+    #endregion
+
+    #region Actions (must match inTask options)
+    private const string ACT_V3_CONTINUE_3 = "FT_V3_Continue_3";
+    private const string ACT_V3_CONTINUE_4 = "FT_V3_Continue_4";
+    private const string ACT_START_TASK = "FT_GoClothing";
+    private const string ACT_BEGIN = "FT_BeginExecution";
+    private const string ACT_CONTINUE_TASK = "ContinueTask";
+    private const string ACT_COMPLETE_TASK = "CompleteTask";
+    private const string CTX_COOLDOWN = "FT_cooldown";
+
+    private const string ACT_ON_EDGE = "OnEdge";
+    private const string ACT_PAUSE_TASK = "PauseTask";
+    private const string DLG_MERCY = "FT_mercy";
+    private const string ACT_MERCY = "FT_Mercy";
+    private const string DLG_MERCY_2 = "FT_mercy2";
+    private const string ACT_FT_FINISHED = "FT_Finished";
+    private const string ACT_FT_RUIN = "FT_Ruin";
+    private const string ACT_FT_FAILED = "FT_Failed";
+    private const string ACT_FT_NOOP = "FT_NoOp";
+    private float cooldownTimer;
+    private int cooldownLastShown;
+    private string activeCountdownContextId = null;
+    private string activeCountdownOptionId = null;
+    private string cooldownOptionId = null;
+    #endregion
+
+    #region Services
+
+    private TaskOptionsUIController taskOptionsUI;
+    private StateController stateController;
+    private Action<string, string> inTaskCallback;
+
+    // Optional: you can create this service later. Controller works without it.
+    private FinalTaskCinemachineSwitcher cameraSwitcher;
+    private string lastCameraKey;
+
+    private ClothingService clothing;
+
+    #endregion
+
+    #region Runtime State
+
+    private Phase phase = Phase.None;
+
+    private bool isDialogueLock = true;
+    private bool gameplayStarted = false;
+    private bool isPaused = false;
+    private int mercyUsed = 0;
+    private const int MaxMercy = 2;
+
+    private bool pendingEnterStep2AfterSecondMercy = false;
+    private bool pendingSecondMercyToV2 = false;
+
+    private float edgedChance = 0.60f; // starts at 30%
+    private const float EdgedChanceInc = 0.10f;
+    private const float EdgedChanceMax = 0.70f; // caps at 70%
+
+    private float step2Timer = 0f;
+    private int lastCountdownInt = -999;
+
+    private bool step2UpperRemoved = false;
+
+    #endregion
+
+    #region Tuning
+    private bool pendingRestartBuildUpAfterMercy = false;
+    [Header("FinalTask Animation")]
+    [SerializeField] private float step1Speed = 1.0f;
+    [SerializeField] private float step2Speed = 1.0f;
+
+    [Header("Timers")]
+    [SerializeField] private float v1FinishWindowSeconds = 10f; // Step2 v1: press Finished in 10 sec
+    [SerializeField] private float countdownNowHoldSeconds = 2f; // show NOW!! for 2 sec
+
+    #endregion
+
+    #region Animation Pools (alpha placeholders)
+
+    // IMPORTANT:
+    // These keys must match Animator triggers: "EL_Start_" + key
+    // Example: key "FT_BU_A" => trigger "EL_Start_FT_BU_A"
+    // Expand pools later without changing logic.
+
+    private readonly List<string> buildUpPool_Default = new List<string>
+    {
+        "JerkTop",
+        "PalmTop",
+        "HandJob"
+    };
+
+    private readonly List<string> buildUpPool_UpperExposed = new List<string>
+    {
+        "ThighJob"
+    };
+
+    private readonly List<string> buildUpPool_LowerExposed = new List<string>
+    {
+        "BreastJob",
+        "2Fingers"
+    };
+ 
+
+    private string currentAnimKey;
+
+    #endregion
+
+    public override void Init(TaskData task)
+    {
+        base.Init(task);
+
+        taskOptionsUI = FindFirstObjectByType<TaskOptionsUIController>();
+        stateController = FindFirstObjectByType<StateController>();
+        inTaskCallback = stateController != null ? stateController.OnInTaskAction : null;
+
+        cameraSwitcher = FindFirstObjectByType<FinalTaskCinemachineSwitcher>();
+
+        var cfg = FindFirstObjectByType<ClothingConfig>();
+        if (cfg != null)
+        {
+            clothing = new ClothingService();
+            clothingPanel = FindFirstObjectByType<FinalTaskClothingPanel>(FindObjectsInactive.Include);
+
+            if (clothingPanel != null && clothing != null)
+            {
+                clothingPanel.Bind(clothing);
+                clothingPanel.Hide();
+            }
+            clothing.Bind(cfg.tshirt, cfg.shorts, cfg.bra, cfg.underwear);
+            clothing.ResetSessionState();
+        }
+        else
+        {
+            Debug.LogWarning("[FinalTask] ClothingConfig not found in scene. Clothing gating will fallback.");
+        }
+    }
+
+    public override void StartTask()
+    {
+        base.StartTask();
+
+        phase = Phase.None;
+        isDialogueLock = true;
+        gameplayStarted = false;
+        isPaused = false;
+
+        mercyUsed = 0;
+        edgedChance = 0.30f; // starts at 30%
+
+        step2Timer = 0f;
+        lastCountdownInt = -999;
+        step2UpperRemoved = false;
+
+        ForceIdle();
+
+        string dialogueFile = !string.IsNullOrEmpty(currentTask != null ? currentTask.dialogueFileName : null)
+            ? currentTask.dialogueFileName
+            : "FinalTask";
+
+        taskDialogues = ctx.dialogueManager.LoadDialogue(dialogueFile);
+        Debug.Log($"[FinalTask] Dialogue loaded: {dialogueFile}");
+
+        ShowDialogueSafe(1,DLG_ENTRY);
+    }
+
+    private void Update()
+    {
+        float dt = Time.deltaTime;
+
+        if (!gameplayStarted || isPaused || isDialogueLock)
+            return;
+
+        // Do not advance timers during UI fade transitions.
+        if (IsUiTransitioning())
+            return;
+
+        UpdateEndingBranch();
+        TickLimits(dt);
+        TickStep1Timers(dt);
+        TickStep2Timers(dt);
+    }
+
+    #region Dialogue -> Controller
+
+    public override bool OnOptionSelected(string answerId, string action)
+    {
+        switch (action)
+        {
+            case ACT_START_TASK:
+                if (string.Equals(currentEntryId, DLG_ENTRY, StringComparison.OrdinalIgnoreCase))
+                {
+                    ShowDialogueSafe(0, DLG_CLOTHING);
+                    return true;
+                }
+
+                if (string.Equals(currentEntryId, DLG_CLOTHING, StringComparison.OrdinalIgnoreCase))
+                {
+                    BeginStep1();
+                    return true;
+                }
+
+                BeginStep1();
+                return true;
+
+            case ACT_CONTINUE_TASK:
+                isDialogueLock = false;
+
+                if (pendingRestartBuildUpAfterMercy)
+                {
+                    pendingRestartBuildUpAfterMercy = false;
+                    isPaused = false;
+
+                    RequestState(StateRequest.EnterExecutingTask);
+                    EnterBuildUp();
+                    return true;
+                }
+
+                if (pendingEnterStep2AfterSecondMercy)
+                {
+                    pendingEnterStep2AfterSecondMercy = false;
+                    isPaused = false;
+
+                    RequestState(StateRequest.EnterExecutingTask);
+
+                    if (pendingSecondMercyToV2)
+                        EnterStep2_V2_Prep();
+                    else
+                        EnterStep2_V3_2_Prep();
+
+                    return true;
+                }
+
+                return true;
+
+            case ACT_COMPLETE_TASK:
+                HandleCompleteTask();
+                return true;
+
+            case ACT_BEGIN:
+                if (clothingPanel != null)
+                    clothingPanel.Hide();
+                BeginStep1();
+                return true;
+
+            default:
+                if (action == "NextDialogue")
+                {
+                    var opt = GetPlayerOptionById(answerId);
+                    if (opt != null && !string.IsNullOrEmpty(opt.nextDialogueId))
+                    {
+                        ShowDialogueSafe(4,opt.nextDialogueId);
+                        return true;
+                    }
+                }
+
+                if (action == "EndGameConfirm")
+                {
+                    ShowDialogueSafe(3, DLG_END_CONFIRM);
+                    return true;
+                }
+
+                return base.OnOptionSelected(answerId, action);
+        }
+    }
+
+    private void ShowDialogueSafe(float delay, string dialogueId)
+    {
+        DialogueEntry entry = GetDialogueEntryById(dialogueId);
+        if (entry == null)
+        {
+            Debug.LogWarning($"[FinalTask] Dialogue entry not found: {dialogueId}");
+            RequestState(StateRequest.CompleteTask);
+            return;
+        }
+
+        isDialogueLock = true;
+
+        RequestState(StateRequest.EnterDialogue);
+
+        if (delayedDialogueRoutine != null)
+        {
+            StopCoroutine(delayedDialogueRoutine);
+            delayedDialogueRoutine = null;
+        }
+
+        delayedDialogueRoutine = StartCoroutine(ShowDialogueDelayed(delay, taskDialogues, dialogueId));
+
+        if (clothingPanel != null)
+        {
+            if (string.Equals(entry.id, "FT_Clothing", StringComparison.OrdinalIgnoreCase))
+                clothingPanel.Show();
+            else
+                clothingPanel.Hide();
+        }
+
+        currentEntryId = dialogueId;
+    }
+
+    #endregion
+
+    #region InTask -> Controller
+
+    public override string OnInTaskOptionSelected(string optionId, string action)
+    {
+        if (isDialogueLock)
+        {
+            Debug.Log("[FinalTask] In-task input ignored due to dialogue lock.");
+            return null;
+        }
+
+        // Step2 is unpausable by design:
+        if (IsInStep2() && action == ACT_PAUSE_TASK)
+            return null;
+
+        switch (action)
+        {
+            case ACT_MERCY:
+                HandleMercy();
+                return null;
+
+            case ACT_ON_EDGE:
+                HandleEdgedPressed();
+                return null;
+
+            case ACT_FT_FINISHED:
+                HandleFinishedPressed();
+                return null;
+
+            case ACT_FT_RUIN:
+                EnterFinalDialogue(DLG_FINAL_V2);
+                return null;
+
+            case ACT_V3_CONTINUE_3:
+                EnterStep2_V3_4();
+                return null;
+
+            case ACT_V3_CONTINUE_4:
+                CancelSessionLogic();
+                return null;
+
+            case ACT_GO_V2_PREP:
+                EnterStep2_V2_Prep();
+                return null;
+
+            case ACT_FT_FAILED:
+                if (phase == Phase.Step2_V3_1)
+                {
+                    EnterStep2_V3_2_Prep();
+                    return null;
+                }
+
+                EnterStep2_V3();
+                return null;
+
+            case ACT_FT_NOOP:
+                return null;
+
+            case ACT_CONTINUE_TASK:
+                if (phase == Phase.Step2_V3_1)
+                {
+                    EnterStep2_V3_2_Prep();
+                    return null;
+                }
+                return null;
+
+            default:
+                return null;
+        }
+    }
+
+    #endregion
+
+    #region Step1
+
+    private void BeginStep1()
+    {
+        StopDelayedContextRoutine();
+
+        if (gameplayStarted)
+            return;
+
+        gameplayStarted = true;
+        isDialogueLock = false;
+        isPaused = false;
+        phase = Phase.Step1_BuildUp;
+
+        currentInTaskContextId = null;
+        currentInTaskContext = null;
+
+        RequestState(StateRequest.EnterExecutingTask);
+
+        EnterBuildUp();
+    }
+
+    private void EnterBuildUp()
+    {
+        branchActive = false;
+        phase = Phase.Step1_BuildUp;
+
+        string animKey = SelectBuildUpAnimKey();
+        PlayAnimKey(animKey, step1Speed);
+        ShowContextDelayed(CTX_STEP1, step2EntryUiDelaySeconds);
+
+        Debug.Log($"[FinalTask] Step1 BuildUp started. Chance={edgedChance:0.00} Mercy={mercyUsed}/{MaxMercy} Anim={animKey}");
+    }
+
+    private void HandleEdgedPressed()
+    {
+        if (phase != Phase.Step1_BuildUp)
+            return;
+
+        float roll = Random.value;
+        bool success = roll <= edgedChance;
+
+        Debug.Log($"[FinalTask] Edged pressed. Roll={roll:0.00} Chance={edgedChance:0.00} Success={success}");
+
+        if (success)
+        {
+            EnterStep2_V1();
+            return;
+        }
+
+        edgedChance = Mathf.Clamp(edgedChance + EdgedChanceInc, 0f, EdgedChanceMax);
+        EnterCooldown();
+    }
+
+    private void HandleMercy()
+    {
+        if (phase != Phase.Step1_BuildUp)
+            return;
+
+        mercyUsed++;
+        ForceIdle();
+        Debug.Log($"[FinalTask] Mercy used: {mercyUsed}/{MaxMercy}");
+
+        if (mercyUsed < MaxMercy)
+        {
+            isPaused = true;
+            pendingRestartBuildUpAfterMercy = true;
+            ShowDialogueSafe(3,DLG_MERCY);
+            return;
+        }
+
+        pendingSecondMercyToV2 = Random.value < 0.5f;
+        pendingEnterStep2AfterSecondMercy = true;
+
+        Debug.Log($"[FinalTask] Second Mercy decision queued. ToV2={pendingSecondMercyToV2}");
+
+        isPaused = true;
+        ShowDialogueSafe(3,DLG_MERCY_2);
+    }
+
+    private void EnterCooldown()
+    {
+        branchActive = false;
+        phase = Phase.Step1_Cooldown;
+
+        ForceIdle();
+
+        step2Timer = 10f;
+        lastCountdownInt = -999;
+
+        ShowCountdownContextDirect(CTX_COOLDOWN, 10);
+        var baseCtx = GetInTaskOptions(CTX_COOLDOWN);
+        if (baseCtx != null && baseCtx.options != null && baseCtx.options.Length > 0 && baseCtx.options[0] != null)
+            cooldownOptionId = baseCtx.options[0].id;
+        else
+            cooldownOptionId = null;
+
+        Debug.Log("[FinalTask] Step1 cooldown started (10s).");
+    }
+
+    private void TickStep1Timers(float dt)
+    {
+        if (phase != Phase.Step1_Cooldown)
+            return;
+
+        step2Timer -= dt;
+
+        int sec = Mathf.CeilToInt(Mathf.Max(0f, step2Timer));
+        if (sec != lastCountdownInt)
+        {
+            if (!IsUiTransitioning())
+            {
+                lastCountdownInt = sec;
+
+                if (taskOptionsUI != null && !string.IsNullOrEmpty(cooldownOptionId))
+                    taskOptionsUI.UpdateOptionLabel(cooldownOptionId, sec.ToString());
+            }
+        }
+
+        if (step2Timer <= 0f)
+        {
+            Debug.Log("[FinalTask] Step1 cooldown done -> BuildUp.");
+            EnterBuildUp();
+        }
+    }
+
+    #endregion
+
+    #region Step2
+
+    private bool IsInStep2()
+    {
+        return phase == Phase.Step2_V1
+            || phase == Phase.Step2_V2_Prep
+            || phase == Phase.Step2_V2_Main
+            || phase == Phase.Step2_V3_1
+            || phase == Phase.Step2_V3_2_Prep
+            || phase == Phase.Step2_V3_3
+            || phase == Phase.Step2_V3_4;
+    }
+
+    private void EnsureUpperRemovedOnce()
+    {
+        if (step2UpperRemoved)
+            return;
+
+        step2UpperRemoved = true;
+
+        if (clothing != null)
+        {
+            clothing.ForceRemoveUpper();
+            Debug.Log("[FinalTask] Upper clothing removed for Step2.");
+        }
+    }
+
+    private void EnterStep2_V1()
+    {
+        EnsureUpperRemovedOnce();
+        ForceIdle();
+
+        phase = Phase.Step2_V1;
+
+        step2Timer = v1FinishWindowSeconds + step2EntryUiDelaySeconds;
+        lastCountdownInt = -999;
+
+        StartEndingBranch();
+        ShowCountdownContextDelayed(CTX_S2V1, Mathf.CeilToInt(v1FinishWindowSeconds), step2EntryUiDelaySeconds);
+        Debug.Log("[FinalTask] Step2 v1 started. Finish window: 10 seconds.");
+    }
+
+    private void HandleFinishedPressed()
+    {
+        if (phase == Phase.Step2_V1)
+        {
+            Debug.Log("[FinalTask] Step2 V1 finished pressed.");
+            EnterFinalDialogue(DLG_FINAL_V1);
+            return;
+        }
+    }
+
+    private void EnterStep2_V2_Prep()
+    {
+        StopDelayedContextRoutine();
+
+        EnsureUpperRemovedOnce();
+
+        phase = Phase.Step2_V2_Prep;
+
+        StartEndingBranch();
+
+        step2Timer = 10f + step2EntryUiDelaySeconds;
+        lastCountdownInt = -999;
+        ShowCountdownContextDelayed(CTX_S2V2_PREP, 10, step2EntryUiDelaySeconds);
+
+        Debug.Log("[FinalTask] Step2 v2 prep started (countdown + animation).");
+    }
+
+    private void TickCountdownContextJumpOnOne(float dt, string contextId, Action onDone)
+    {
+        step2Timer -= dt;
+
+        float t = Mathf.Max(0f, step2Timer);
+        int sec = Mathf.CeilToInt(t);
+        if (sec < 0) sec = 0;
+
+        if (sec != lastCountdownInt)
+        {
+            lastCountdownInt = sec;
+            ShowCountdownContextDirect(contextId, sec);
+        }
+
+        if (sec <= 1)
+            onDone?.Invoke();
+    }
+
+    private void EnterStep2_V2_Main()
+    {
+        StopDelayedContextRoutine();
+
+        phase = Phase.Step2_V2_Main;
+
+        ShowContextDelayed(CTX_S2V2_MAIN, 0f);
+        Debug.Log("[FinalTask] Step2 v2 main started.");
+    }
+    private void ClearInTaskUiState()
+    {
+        activeCountdownContextId = null;
+        activeCountdownOptionId = null;
+        cooldownOptionId = null;
+
+        currentInTaskContextId = null;
+        currentInTaskContext = null;
+
+        if (taskOptionsUI != null)
+            taskOptionsUI.HideAll();
+    }
+    private void EnterStep2_V3()
+    {
+        EnsureUpperRemovedOnce();
+        ForceIdle();
+
+        phase = Phase.Step2_V3_1;
+
+        StartEndingBranch();
+        ShowContextDelayed(CTX_S2V3_1, step2EntryUiDelaySeconds);
+        Debug.Log("[FinalTask] Step2 v3 started (screen 1).");
+    }
+
+    private void EnterStep2_V3_2_Prep()
+    {
+        branchActive = false;
+        ForceIdle();
+
+        phase = Phase.Step2_V3_2_Prep;
+
+        step2Timer = 10f + step2EntryUiDelaySeconds;
+        lastCountdownInt = -999;
+        ShowCountdownContextDelayed(CTX_S2V3_2, 10, step2EntryUiDelaySeconds);
+
+        Debug.Log("[FinalTask] Step2 v3 countdown started (screen 2).");
+    }
+
+    private void EnterStep2_V3_3()
+    {
+        branchActive = false;
+        ForceIdle();
+        phase = Phase.Step2_V3_3;
+
+        ShowContextDirect(CTX_S2V3_3);
+
+        step2Timer = 1.0f;
+        lastCountdownInt = -999;
+
+        Debug.Log("[FinalTask] Step2 v3 screen 3 shown (auto).");
+    }
+
+    private void EnterStep2_V3_4()
+    {
+        branchActive = false;
+        ForceIdle();
+        phase = Phase.Step2_V3_4;
+
+        ShowContextDirect(CTX_S2V3_4);
+
+        step2Timer = 1.5f;
+        lastCountdownInt = -999;
+
+        Debug.Log("[FinalTask] Step2 v3 screen 4 shown (auto).");
+    }
+
+    private void TickStep2Timers(float dt)
+    {
+        if (!IsInStep2())
+            return;
+
+        if (phase == Phase.Step2_V1)
+        {
+            step2Timer -= dt;
+
+            int sec = Mathf.CeilToInt(Mathf.Max(0f, step2Timer));
+            if (sec != lastCountdownInt)
+            {
+                lastCountdownInt = sec;
+
+                if (taskOptionsUI != null && !string.IsNullOrEmpty(activeCountdownOptionId))
+                    taskOptionsUI.UpdateOptionLabel(activeCountdownOptionId, $"Finished ({sec})");
+            }
+
+            if (step2Timer <= 0f)
+            {
+                Debug.Log("[FinalTask] Step2 V1 window missed -> V2 prep.");
+                EnterStep2_V2_Prep();
+            }
+
+            return;
+        }
+
+        if (phase == Phase.Step2_V2_Prep)
+        {
+            TickCountdownContextJumpOnOne(dt, CTX_S2V2_PREP, EnterStep2_V2_Main);
+            return;
+        }
+
+        if (phase == Phase.Step2_V3_2_Prep)
+        {
+            TickCountdownContextJumpOnOne(dt, CTX_S2V3_2, EnterStep2_V3_3);
+            return;
+        }
+    }
+
+    private void TickCountdownContext(float dt, string contextId, Action onDone)
+    {
+        step2Timer -= dt;
+
+        float t = Mathf.Max(0f, step2Timer);
+
+        float countdownPart = Mathf.Max(0f, t - countdownNowHoldSeconds);
+
+        int sec = Mathf.CeilToInt(countdownPart);
+        if (sec < 0) sec = 0;
+
+        if (countdownPart > 0.01f)
+        {
+            if (sec != lastCountdownInt)
+            {
+                if (!IsUiTransitioning())
+                {
+                    lastCountdownInt = sec;
+                    ShowCountdownContextDirect(contextId, sec);
+                }
+            }
+        }
+        else
+        {
+            if (lastCountdownInt != -1)
+            {
+                if (!IsUiTransitioning())
+                {
+                    lastCountdownInt = -1;
+                    ShowCountdownLabelNow(contextId);
+                }
+            }
+        }
+
+        if (step2Timer <= 0f)
+            onDone?.Invoke();
+    }
+
+    #endregion
+
+    #region Final Dialogue / Completion
+
+    private void EnterFinalDialogue(string dialogueId)
+    {
+        StopDelayedContextRoutine();
+        ClearInTaskUiState();
+
+        step2Timer = 0f;
+        lastCountdownInt = -999;
+
+        branchActive = false;
+        gameplayStarted = false;
+        isPaused = false;
+        isDialogueLock = true;
+
+        ForceIdle();
+
+        phase = Phase.FinalDialogue;
+
+        ShowDialogueSafe(3, dialogueId);
+    }
+
+    private void HandleCompleteTask()
+    {
+        StopDelayedContextRoutine();
+        ClearInTaskUiState();
+
+        step2Timer = 0f;
+        lastCountdownInt = -999;
+
+        isDialogueLock = false;
+        gameplayStarted = false;
+        isPaused = false;
+        branchActive = false;
+
+        CleanupLimits();
+        ClearCachedTriggers();
+        ForceIdle();
+
+        RequestState(StateRequest.CompleteTask);
+    }
+
+    #endregion
+
+    #region Context / UI Helpers
+
+    private void SetContextById(string contextId)
+    {
+        currentInTaskContextId = contextId;
+        currentInTaskContext = GetInTaskOptions(contextId);
+    }
+
+    private void ShowContextDirect(string contextId)
+    {
+        activeCountdownContextId = null;
+        activeCountdownOptionId = null;
+
+        SetContextById(contextId);
+
+        if (taskOptionsUI == null || inTaskCallback == null)
+            return;
+
+        taskOptionsUI.ShowOptions(currentInTaskContext, inTaskCallback);
+    }
+
+    private void ShowCountdownContextDirect(string contextId, int secondsLeft)
+    {
+        var baseCtx = GetInTaskOptions(contextId);
+        if (baseCtx == null)
+        {
+            Debug.LogWarning($"[FinalTask] Countdown context not found: {contextId}");
+            return;
+        }
+
+        string optionId = null;
+        if (baseCtx.options != null && baseCtx.options.Length > 0 && baseCtx.options[0] != null)
+            optionId = baseCtx.options[0].id;
+
+        if (taskOptionsUI != null
+            && !string.IsNullOrEmpty(optionId)
+            && string.Equals(activeCountdownContextId, contextId, StringComparison.OrdinalIgnoreCase)
+            && string.Equals(activeCountdownOptionId, optionId, StringComparison.OrdinalIgnoreCase))
+        {
+            taskOptionsUI.UpdateOptionLabel(optionId, secondsLeft.ToString());
+            return;
+        }
+
+        InTaskContext runtime = CloneContext(baseCtx);
+        if (runtime.options != null && runtime.options.Length > 0 && runtime.options[0] != null)
+        {
+            runtime.options[0].label = secondsLeft.ToString();
+
+            runtime.options[0].action = string.Equals(contextId, CTX_S2V1, StringComparison.OrdinalIgnoreCase)
+                ? ACT_FT_FINISHED
+                : ACT_FT_NOOP;
+        }
+
+        if (taskOptionsUI == null || inTaskCallback == null)
+            return;
+
+        activeCountdownContextId = contextId;
+        activeCountdownOptionId = optionId;
+
+        currentInTaskContextId = contextId;
+        currentInTaskContext = runtime;
+
+        taskOptionsUI.ShowOptions(runtime, inTaskCallback);
+    }
+
+    private void ShowCountdownLabelNow(string contextId)
+    {
+        var baseCtx = GetInTaskOptions(contextId);
+        if (baseCtx == null)
+            return;
+
+        string optionId = null;
+        if (baseCtx.options != null && baseCtx.options.Length > 0 && baseCtx.options[0] != null)
+            optionId = baseCtx.options[0].id;
+
+        if (taskOptionsUI != null
+            && !string.IsNullOrEmpty(optionId)
+            && string.Equals(activeCountdownContextId, contextId, StringComparison.OrdinalIgnoreCase)
+            && string.Equals(activeCountdownOptionId, optionId, StringComparison.OrdinalIgnoreCase))
+        {
+            taskOptionsUI.UpdateOptionLabel(optionId, "NOW!!");
+            return;
+        }
+
+        InTaskContext runtime = CloneContext(baseCtx);
+        if (runtime.options != null && runtime.options.Length > 0 && runtime.options[0] != null)
+        {
+            runtime.options[0].label = "NOW!!";
+            runtime.options[0].action = ACT_FT_NOOP;
+        }
+
+        if (taskOptionsUI == null || inTaskCallback == null)
+            return;
+
+        activeCountdownContextId = contextId;
+        activeCountdownOptionId = optionId;
+
+        currentInTaskContextId = contextId;
+        currentInTaskContext = runtime;
+
+        taskOptionsUI.ShowOptions(runtime, inTaskCallback);
+    }
+
+    private InTaskContext CloneContext(InTaskContext src)
+    {
+        if (src == null)
+            return null;
+
+        InTaskContext clone = new InTaskContext();
+        clone.id = src.id;
+        clone.text = src.text;
+
+        if (src.options == null)
+        {
+            clone.options = Array.Empty<InTaskOption>();
+            return clone;
+        }
+
+        clone.options = new InTaskOption[src.options.Length];
+        for (int i = 0; i < src.options.Length; i++)
+        {
+            var o = src.options[i];
+            if (o == null)
+            {
+                clone.options[i] = null;
+                continue;
+            }
+
+            var c = new InTaskOption();
+            c.id = o.id;
+            c.label = o.label;
+            c.action = o.action;
+            c.nextOption = o.nextOption;
+            c.side = o.side;
+            clone.options[i] = c;
+        }
+
+        return clone;
+    }
+
+    #endregion
+
+    #region Animation Helpers
+
+    private void ForceIdle()
+    {
+        if (characterAnimator == null)
+            return;
+
+        characterAnimator.SetTrigger(TRG_FORCE_IDLE);
+        ResetCameraToDefault();
+    }
+
+    private void PlayAnimKey(string key, float speed)
+    {
+        if (characterAnimator == null)
+        {
+            Debug.LogError("[FinalTask] Animator is null.");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(key))
+        {
+            Debug.LogWarning("[FinalTask] Empty anim key.");
+            return;
+        }
+
+        currentAnimKey = key;
+
+        string startTrigger = "EL_Start_" + key;
+        cachedStartTriggers.Add(startTrigger);
+
+        characterAnimator.ResetTrigger(TRG_END);
+        characterAnimator.ResetTrigger(TRG_FORCE_IDLE);
+
+        foreach (var trg in cachedStartTriggers)
+            characterAnimator.ResetTrigger(trg);
+
+        characterAnimator.SetFloat(PARAM_SPEED, speed);
+        characterAnimator.SetTrigger(startTrigger);
+
+        SwitchCameraForKey(key);
+
+        Debug.Log($"[FinalTask] PlayAnimKey key={key} trigger={startTrigger} speed={speed:0.00}");
+    }
+
+    private void ClearCachedTriggers()
+    {
+        if (characterAnimator == null)
+            return;
+
+        characterAnimator.ResetTrigger(TRG_END);
+        characterAnimator.ResetTrigger(TRG_FORCE_IDLE);
+
+        foreach (var trg in cachedStartTriggers)
+            characterAnimator.ResetTrigger(trg);
+    }
+
+    private void SwitchCameraForKey(string key)
+    {
+        if (cameraSwitcher == null)
+            return;
+
+        if (string.IsNullOrWhiteSpace(key))
+            return;
+
+        if (string.Equals(lastCameraKey, key, StringComparison.OrdinalIgnoreCase))
+            return;
+
+        lastCameraKey = key;
+        cameraSwitcher.SwitchForAnimation(key);
+    }
+
+    private void ResetCameraToDefault()
+    {
+        if (cameraSwitcher == null)
+            return;
+
+        lastCameraKey = null;
+        cameraSwitcher.ResetToDefault();
+    }
+
+    #endregion
+
+    #region Selection
+
+    private string SelectBuildUpAnimKey()
+    {
+        var pool = new List<string>(buildUpPool_Default);
+
+        if (clothing != null)
+        {
+            if (clothing.IsUpperExposed)
+                pool.AddRange(buildUpPool_UpperExposed);
+
+            if (clothing.IsLowerExposed)
+                pool.AddRange(buildUpPool_LowerExposed);
+        }
+
+        if (pool.Count == 0)
+            return "FT_BU_A";
+
+        return pool[Random.Range(0, pool.Count)];
+    }
+
+ 
+
+    #endregion
+    private void SelectEndingBranch()
+    {
+        currentEndingBranch = (UnityEngine.Random.value < 0.5f)
+            ? EndingBranch.Back
+            : EndingBranch.Front;
+
+        Debug.Log($"[FinalTask] Ending branch selected: {currentEndingBranch}");
+    }
+    private void UpdateFrontBranch()
+    {
+        if (frontIsWall)
+        {
+            characterAnimator.SetTrigger("Front_handUp");
+            frontIsWall = false;
+        }
+        else
+        {
+            characterAnimator.SetTrigger("Front_handDown");
+            frontIsWall = true;
+        }
+    }
+    private void UpdateBackBranch()
+    {
+        switch (backNode)
+        {
+            case BackNode.LoopFull:
+
+                characterAnimator.SetTrigger("Final_Full_To_B");
+                backNode = BackNode.LoopB;
+                break;
+
+            case BackNode.LoopB:
+
+                if (!backAlternateToggle)
+                {
+                    characterAnimator.SetTrigger("Final_B_To_F");
+                    backNode = BackNode.LoopF;
+                }
+                else
+                {
+                    characterAnimator.SetTrigger("Final_B_To_Full");
+                    backNode = BackNode.LoopFull;
+                }
+
+                backAlternateToggle = !backAlternateToggle;
+                break;
+
+            case BackNode.LoopF:
+
+                characterAnimator.SetTrigger("Final_F_To_B");
+                backNode = BackNode.LoopB;
+                break;
+        }
+    }
+    private void UpdateEndingBranch()
+    {
+        if (!branchActive)
+            return;
+
+        if (Time.time < nextAnimSwitchTime)
+            return;
+
+        nextAnimSwitchTime = Time.time + AnimSwitchInterval;
+
+        if (currentEndingBranch == EndingBranch.Back)
+            UpdateBackBranch();
+        else
+            UpdateFrontBranch();
+    }
+    private void StartEndingBranch()
+    {
+        SelectEndingBranch();
+
+        branchActive = true;
+        nextAnimSwitchTime = Time.time + AnimSwitchInterval;
+
+        if (currentEndingBranch == EndingBranch.Back)
+        {
+            backNode = BackNode.LoopFull;
+            backAlternateToggle = false;
+
+            characterAnimator.SetTrigger("FinalStartLoopBack");
+        }
+        else
+        {
+            frontIsWall = true;
+            characterAnimator.SetTrigger("FinalStartLoopFront");
+        }
+    }
+    private IEnumerator ShowDialogueDelayed(float delay, DialogueData dialogue, string entryId)
+    {
+        if (ctx != null && ctx.dialogueUI != null)
+            ctx.dialogueUI.HideAllOptions();
+
+        if (taskOptionsUI != null)
+            taskOptionsUI.HideAll();
+
+        if (delay > 0f)
+            yield return new WaitForSecondsRealtime(delay);
+
+        if (ctx == null || ctx.dialogueUI == null)
+            yield break;
+
+        ctx.dialogueUI.ShowDialogue(dialogue, entryId);
+        currentEntryId = entryId;
+
+        delayedDialogueRoutine = null;
+    }
+    private void StopDelayedContextRoutine()
+    {
+        if (delayedContextRoutine != null)
+        {
+            StopCoroutine(delayedContextRoutine);
+            delayedContextRoutine = null;
+        }
+    }
+    private void ShowContextDelayed(string contextId, float delay)
+    {
+        StopDelayedContextRoutine();
+        delayedContextRoutine = StartCoroutine(ShowContextDelayedRoutine(contextId, delay));
+    }
+
+    private IEnumerator ShowContextDelayedRoutine(string contextId, float delay)
+    {
+        if (taskOptionsUI != null)
+            taskOptionsUI.HideAll();
+
+        if (ctx != null && ctx.dialogueUI != null)
+            ctx.dialogueUI.HideAllOptions();
+
+        yield return new WaitForSecondsRealtime(delay);
+
+        ShowContextDirect(contextId);
+        delayedContextRoutine = null;
+    }
+    private void ShowCountdownContextDelayed(string contextId, int secondsLeft, float delay)
+    {
+        StopDelayedContextRoutine();
+        delayedContextRoutine = StartCoroutine(ShowCountdownContextDelayedRoutine(contextId, secondsLeft, delay));
+    }
+
+    private IEnumerator ShowCountdownContextDelayedRoutine(string contextId, int secondsLeft, float delay)
+    {
+        if (taskOptionsUI != null)
+            taskOptionsUI.HideAll();
+
+        if (ctx != null && ctx.dialogueUI != null)
+            ctx.dialogueUI.HideAllOptions();
+
+        yield return new WaitForSecondsRealtime(delay);
+
+        ShowCountdownContextDirect(contextId, secondsLeft);
+        delayedContextRoutine = null;
+    }
+}
+
+/// <summary>
+/// Scene service for camera switching (Cinemachine VCams by Priority).
+/// Implement it similarly to EdgeLadderCinemachineSwitcher.
+/// </summary>
+public class FinalTaskCinemachineSwitcher : MonoBehaviour
+{
+    public virtual void SwitchForAnimation(string animKey) { }
+    public virtual void ResetToDefault() { }
+}

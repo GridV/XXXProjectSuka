@@ -25,7 +25,7 @@ public class RhythmVisualizerUI : MonoBehaviour
             _baseColor = ringFill.color;
     }
 
-    // Устанавливает заполнение кольца (0..1)
+    // Устанавливает заполнение кольца (0..1)фыфыфыф
     public void SetProgress(float t)
     {
         if (ringFill != null)

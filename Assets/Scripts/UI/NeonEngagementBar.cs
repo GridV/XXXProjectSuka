@@ -19,7 +19,7 @@ public class NeonEngagementBar : MonoBehaviour
     /// <summary>
     /// Call this whenever engagement changes.
     /// </summary>
-    public void UpdateBar(int engagement)
+    public void UpdateBar(float engagement)
     {
         Debug.Log($"[NeonEngagementBar] UpdateBar called with {engagement}");
 

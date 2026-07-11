@@ -1,0 +1,44 @@
+{
+  "taskId": "TryTofinish",
+  "dialogues": [
+    {
+      "id": "FinishTrue",
+      "npcVariants": [ "You've been such a good boy. I let you finish." ],
+      "playerOptions": [
+        {
+          "id": "TTFfinish",
+          "variants": [ "Go!" ],
+          "type": "Positive",
+          "action": "TTFGoToEnd",
+          "nextDialogueId": ""
+        },
+        {
+          "id": "TTFBack",
+          "variants": [ "Scratch that" ],
+          "type": "Negative",
+          "action": "TTFBackToTask",
+          "nextDialogueId": "FinalDialogue"
+        }
+      ]
+    },
+    {
+      "id": "FinishFalse",
+      "npcVariants": [ "No! you don't deserve it.'" ],
+      "playerOptions": [
+        {
+          "id": "TTFBack2",
+          "variants": [ "Sorry ma’am" ],
+          "type": "Positive",
+          "action": "TTFBackToTask",
+          "nextDialogueId": "FinalDialogue"
+        },
+        {
+          "id": "TTFCancel",
+          "variants": [ "Need to go" ],
+          "type": "Negative",
+          "action": "TTFCancelSession"
+        }
+      ]
+    } 
+  ]
+}

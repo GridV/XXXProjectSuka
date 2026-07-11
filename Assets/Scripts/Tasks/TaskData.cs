@@ -3,15 +3,36 @@
 [System.Serializable]
 public class AnimationClipInfo
 {
-    [Tooltip("Name in Animator")]
+    [Tooltip("Name of the state in Animator to play")]
     public string stateName;
-    [Tooltip("Extra pause")]
+
+    [Tooltip("Pause after this clip (seconds)")]
     public float delayAfter = 0f;
 }
+[System.Serializable]
+
+
+
 
 [CreateAssetMenu(menuName = "Game/Task", fileName = "Task_")]
 public class TaskData : ScriptableObject
 {
+    [Header("In-Task Contexts")]
+    public InTaskContext[] inTaskContexts;
+
+    [Tooltip("Context id to show when task execution starts")]
+    public string startInTaskContextId;
+
+    [Header("Task Limits")]
+    public TaskLimitType limitType = TaskLimitType.None;
+
+    [Tooltip("Time limit in seconds (used if limitType == Time)")]
+    public float timeLimitSeconds = 0f;
+
+    [Tooltip("Max rhythm steps (used if limitType == RhythmCount)")]
+    public int rhythmStepLimit = 0;
+
+
     [Header("Identification")]
     public string id;
     public string title;
@@ -34,15 +55,42 @@ public class TaskData : ScriptableObject
     [Tooltip("Сколько очков вовлечения прибавить при завершении этого задания.")]
     public int engagementReward = 0;
 
-
-    [Header("If Default (in this scene)")]
-    [Tooltip("Animation order")]
+    [Header("Animation Sequence (if Default scene)")]
     public AnimationClipInfo[] animationSequence;
 
-    [Header("If SpecialScene")]
-    [Tooltip("Task scene name")]
+    [Header("Special Scene (if taskType == SpecialScene)")]
     public string sceneName;
 
+    [Header("Dialogue")]
+    [Tooltip("Имя JSON файла диалога из StreamingAssets/Dialogues")]
+    public string dialogueFileName;
+
+    [Header("Rhythm (optional)")]
+    [Tooltip("Паттерн ритма, который будет использоваться в этом задании")]
+    public RhythmPattern rhythmPattern;
+
+    [Header("Emotions")]
+    [Tooltip("Emotion at task start (Animator Trigger)")]
+    public string startEmotion;
+
+    [Tooltip("Emotion at task end (Animator Trigger)")]
+    public string endEmotion;
+
+    #region Repeatable Task Settings
+
+    [Header("Repeat Count Task Defaults")]
+    public int baseRepeatCount;
+    public float baseMinTime;
+    public float baseMaxTime;
+
+    [Header("Repeat Count Random Range")]
+    public int randomMinRepeats = 10;
+    public int randomMaxRepeats = 45;
+
+    [Header("Repeat Count Extra Max Time Padding")]
+    public float extraMaxTimePadding = 10f;
+
+    #endregion
     public float GetWeight(TaskPhase phase)
     {
         return phase switch
@@ -55,7 +103,7 @@ public class TaskData : ScriptableObject
         };
     }
 
-    public bool IsAvailable(int engagement)
+    public bool IsAvailable(float engagement)
     {
         return engagement >= engagementMin && engagement <= engagementMax;
     }

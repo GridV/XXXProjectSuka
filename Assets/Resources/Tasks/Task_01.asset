@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38bf9db2ff1ede42a59ffec63f8a803, type: 3}
+  m_Name: Task_01
+  m_EditorClassIdentifier: 
+  inTaskContexts:
+  - id: default
+    text: Stroke according with rythm!
+    options:
+    - id: Pause
+      nextOption: pauseOpt
+      label: Mercy
+      action: PauseTask
+      side: 0
+    - id: Stop
+      nextOption: stop
+      label: Enough
+      action: PauseTask
+      side: 1
+  - id: pauseOpt
+    text: Yes you can have a rest..
+    options:
+    - id: Cont
+      nextOption: default
+      label: Im ready.
+      action: ContinueTask
+      side: 0
+  - id: stop
+    text: Do you want to stop session
+    options:
+    - id: Yes
+      nextOption: 
+      label: Yes
+      action: EndSession
+      side: 1
+    - id: No
+      nextOption: default
+      label: No
+      action: ContinueTask
+      side: 0
+  startInTaskContextId: 
+  limitType: 1
+  timeLimitSeconds: 20
+  rhythmStepLimit: 0
+  id: Task_01
+  title: 
+  description: Follow the basic stroke rhythm and try to match the beats.
+  engagementMin: 0
+  engagementMax: 100
+  weightEarly: 1
+  weightMid: 0
+  weightLate: 0
+  weightFinal: 0
+  taskType: 0
+  engagementReward: 5
+  animationSequence: []
+  sceneName: Game_First
+  dialogueFileName: Task_01.json
+  rhythmPattern: {fileID: 11400000, guid: 878418eecbc82d243a793adad5783aab, type: 2}
+  startEmotion: 
+  endEmotion: 

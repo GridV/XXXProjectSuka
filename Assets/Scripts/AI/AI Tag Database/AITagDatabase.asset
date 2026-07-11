@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3efefde4ed3424d88fe39975175f49, type: 3}
+  m_Name: AITagDatabase
+  m_EditorClassIdentifier: 
+  conversationIntents:
+  - Greeting
+  - Goodbye
+  - Explain
+  - Question
+  - Answer
+  - Encourage
+  - Praise
+  - Tease
+  - Comfort
+  - Warn
+  - Command
+  - Apologize
+  - Think
+  - Listen
+  - Silence
+  emotionTags:
+  - Neutral
+  - Happy
+  - Playful
+  - Confident
+  - Dominant
+  - Shy
+  - Embarrassed
+  - Curious
+  - Excited
+  - Disappointed
+  - Angry
+  - Calm
+  - Relaxed
+  - Focused
+  expressionTags:
+  - Smile
+  - Laugh
+  - Giggle
+  - Blush
+  - Sigh
+  - LookAway
+  - EyeContact
+  - Blink
+  - Nod
+  - ShakeHead
+  bodyIntents:
+  - Idle
+  - Talk
+  - LeanForward
+  - LeanBack
+  - Approach
+  - StepBack
+  - Sit
+  - Stand
+  - Wait
+  - Observe
+  gameplayCommands:
+  - ContinueDialogue
+  - StartTask
+  - PauseTask
+  - ResumeTask
+  - FinishTask
+  - RetryTask
+  - NextTask
+  - StartRhythm
+  - IncreaseSpeed
+  - DecreaseSpeed
+  - Hold
+  - Release
+  - MoveToNextChapter
+  - EndSession
+  cameraIntents:
+  - FocusFace
+  - FocusBody
+  - ZoomIn
+  - ZoomOut
+  - RandomDance

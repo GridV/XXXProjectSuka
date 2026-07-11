@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38bf9db2ff1ede42a59ffec63f8a803, type: 3}
+  m_Name: InitialTask
+  m_EditorClassIdentifier: 
+  inTaskContexts: []
+  startInTaskContextId: 
+  limitType: 0
+  timeLimitSeconds: 0
+  rhythmStepLimit: 0
+  id: InitialTask
+  title: First contact
+  description: 
+  engagementMin: 0
+  engagementMax: 100
+  weightEarly: 1
+  weightMid: 0
+  weightLate: 0
+  weightFinal: 0
+  taskType: 0
+  engagementReward: 5
+  animationSequence: []
+  sceneName: Env_Default
+  dialogueFileName: 'InitialTask.json '
+  rhythmPattern: {fileID: 0}
+  startEmotion: 
+  endEmotion: 
+  baseRepeatCount: 0
+  baseMinTime: 0
+  baseMaxTime: 0
+  randomMinRepeats: 10
+  randomMaxRepeats: 45
+  extraMaxTimePadding: 10

@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38bf9db2ff1ede42a59ffec63f8a803, type: 3}
+  m_Name: TaskRepeatCount
+  m_EditorClassIdentifier: 
+  inTaskContexts:
+  - id: default
+    text: Let me know when you finish
+    options:
+    - id: Finish
+      nextOption: 
+      label: I'm done
+      action: Finish
+      side: 0
+    - id: Fail
+      nextOption: stop
+      label: I can't
+      action: PauseTask
+      side: 1
+  - id: reset
+    text: Too fast. Do it proper!
+    options:
+    - id: Finish
+      nextOption: 
+      label: Done
+      action: Finish
+      side: 0
+    - id: Fail
+      nextOption: stop
+      label: Fail
+      action: PauseTask
+      side: 1
+  - id: stop
+    text: Little boy want to stop session?
+    options:
+    - id: Yes
+      nextOption: 
+      label: Yes
+      action: EndSession
+      side: 1
+    - id: No
+      nextOption: default
+      label: No
+      action: 
+      side: 0
+  startInTaskContextId: 
+  limitType: 1
+  timeLimitSeconds: 50
+  rhythmStepLimit: 0
+  id: TaskRepeat
+  title: 
+  description: Now. Touch yourself as I told to.
+  engagementMin: 0
+  engagementMax: 100
+  weightEarly: 1
+  weightMid: 1
+  weightLate: 1
+  weightFinal: 1
+  taskType: 0
+  engagementReward: 10
+  animationSequence: []
+  sceneName: Env_Default
+  dialogueFileName: TaskRepeat.json
+  rhythmPattern: {fileID: 0}
+  startEmotion: 
+  endEmotion: 
+  baseRepeatCount: 10
+  baseMinTime: 20
+  baseMaxTime: 30
+  randomMinRepeats: 10
+  randomMaxRepeats: 45
+  extraMaxTimePadding: 10

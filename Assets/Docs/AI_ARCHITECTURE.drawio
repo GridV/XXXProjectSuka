@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" modified="2026-06-13T00:00:00.000Z" agent="5.0" version="20.0">
+  <diagram id="ai_architecture" name="AI Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="AI Director System Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- GAME AUTHORITY SECTION (Blue) -->
+        <mxCell id="group_game" value="Game Authority" style="group;fillColor=#E8F4F8;strokeColor=#0066CC;strokeWidth=2" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="50" y="80" width="250" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="task_controller" value="TaskController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0066CC;fontColor=white;fontSize=12;fontStyle=1" vertex="1" parent="group_game">
+          <mxGeometry x="10" y="30" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="state_controller" value="StateController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0066CC;fontColor=white;fontSize=12;fontStyle=1" vertex="1" parent="group_game">
+          <mxGeometry x="10" y="100" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="task_manager" value="TaskManager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0066CC;fontColor=white;fontSize=12;fontStyle=1" vertex="1" parent="group_game">
+          <mxGeometry x="130" y="100" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="note_game" value="Remain gameplay authority.&#10;AI influences but does not control." style="text;html=1;fontSize=10;fillColor=none;strokeColor=none;align=center;verticalAlign=middle" vertex="1" parent="group_game">
+          <mxGeometry x="10" y="160" width="230" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- AI PROVIDER SECTION (Green) -->
+        <mxCell id="group_provider" value="AI Provider" style="group;fillColor=#F0F8E8;strokeColor=#00AA00;strokeWidth=2" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1100" y="80" width="250" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="provider_interface" value="IAIDirectorProvider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00AA00;fontColor=white;fontSize=12;fontStyle=1" vertex="1" parent="group_provider">
+          <mxGeometry x="10" y="30" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="fake_provider" value="FakeAIDirectorProvider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#66DD66;fontColor=black;fontSize=11" vertex="1" parent="group_provider">
+          <mxGeometry x="10" y="100" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="note_provider" value="Returns AIDirectorResponse:&#10;text, options, animation tags, etc." style="text;html=1;fontSize=10;fillColor=none;strokeColor=none;align=center;verticalAlign=middle" vertex="1" parent="group_provider">
+          <mxGeometry x="10" y="160" width="230" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- AIBridge - Central Mediator (Purple) -->
+        <mxCell id="ai_bridge" value="AIBridge&#10;(Central Mediator)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#9966CC;fontColor=white;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="525" y="150" width="150" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- VALIDATION (Orange) -->
+        <mxCell id="validator" value="AIDirectorResponseValidator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF9933;fontColor=white;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="525" y="280" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- TEXT / UI FLOW (Yellow) -->
+        <mxCell id="group_ui" value="Text &amp; UI Flow" style="group;fillColor=#FFFDE8;strokeColor=#CCAA00;strokeWidth=2" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="50" y="400" width="400" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="text_presenter" value="AITextOptionPresenter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFBB00;fontColor=black;fontSize=11;fontStyle=1" vertex="1" parent="group_ui">
+          <mxGeometry x="10" y="30" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ui_controller" value="TaskOptionsUIController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFBB00;fontColor=black;fontSize=11;fontStyle=1" vertex="1" parent="group_ui">
+          <mxGeometry x="210" y="30" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="player_intent" value="Player Intent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFD700;fontColor=black;fontSize=11;fontStyle=1" vertex="1" parent="group_ui">
+          <mxGeometry x="110" y="110" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="note_ui" value="(optionId, intentTag)" style="text;html=1;fontSize=9;fillColor=none;strokeColor=none;align=center;verticalAlign=middle" vertex="1" parent="group_ui">
+          <mxGeometry x="110" y="155" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ANIMATION FLOW (Cyan) -->
+        <mxCell id="group_anim" value="Animation Flow" style="group;fillColor=#E8F8FF;strokeColor=#0066FF;strokeWidth=2" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="950" y="400" width="400" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="anim_selector" value="AIAnimationSelector" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0099FF;fontColor=white;fontSize=11;fontStyle=1" vertex="1" parent="group_anim">
+          <mxGeometry x="10" y="30" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="anim_dict" value="AIAnimationDictionary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0099FF;fontColor=white;fontSize=11;fontStyle=1" vertex="1" parent="group_anim">
+          <mxGeometry x="210" y="30" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="anim_executor" value="AIAnimationExecutor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0099FF;fontColor=white;fontSize=11;fontStyle=1" vertex="1" parent="group_anim">
+          <mxGeometry x="10" y="110" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="char_anim_service" value="CharacterAnimationService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0099FF;fontColor=white;fontSize=11;fontStyle=1" vertex="1" parent="group_anim">
+          <mxGeometry x="210" y="110" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="animator" value="Animator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6699FF;fontColor=white;fontSize=11;fontStyle=1" vertex="1" parent="group_anim">
+          <mxGeometry x="110" y="190" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- KEY RULES BOX -->
+        <mxCell id="rules_box" value="KEY RULES&#10;&#10;• AI never controls Unity directly&#10;• AIBridge is the only AI communication point&#10;• TaskManager / StateController remain gameplay authority" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE8E8;strokeColor=#CC0000;strokeWidth=2;fontSize=10;align=left;verticalAlign=top;spacingTop=5;spacingLeft=5" vertex="1" parent="1">
+          <mxGeometry x="350" y="720" width="700" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ARROWS FROM GAME AUTHORITY TO AIBRIDGE -->
+        <mxCell id="arrow_task_to_bridge" edge="1" parent="1" source="task_controller" target="ai_bridge">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ARROW FROM AIBRIDGE TO PROVIDER -->
+        <mxCell id="arrow_bridge_to_provider" edge="1" parent="1" source="ai_bridge" target="provider_interface">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="850" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ARROW FROM PROVIDER TO RESPONSE -->
+        <mxCell id="arrow_response_to_validator" edge="1" parent="1" source="fake_provider" target="validator">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="850" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ARROW FROM VALIDATOR TO BRIDGE -->
+        <mxCell id="arrow_validator_to_bridge" edge="1" parent="1" source="validator" target="ai_bridge">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- SPLIT FROM AIBRIDGE TO UI FLOW -->
+        <mxCell id="arrow_bridge_to_text" edge="1" parent="1" source="ai_bridge" target="text_presenter">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- UI FLOW ARROWS -->
+        <mxCell id="arrow_text_to_ui" edge="1" parent="1" source="text_presenter" target="ui_controller">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="425" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_ui_to_intent" edge="1" parent="1" source="ui_controller" target="player_intent">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_intent_back" edge="1" parent="1" source="player_intent" target="ai_bridge">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- SPLIT FROM AIBRIDGE TO ANIMATION FLOW -->
+        <mxCell id="arrow_bridge_to_anim" edge="1" parent="1" source="ai_bridge" target="anim_selector">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1000" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ANIMATION FLOW ARROWS -->
+        <mxCell id="arrow_selector_to_dict" edge="1" parent="1" source="anim_selector" target="anim_dict">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="55" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_dict_to_executor" edge="1" parent="1" source="anim_dict" target="anim_executor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="135" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_executor_to_service" edge="1" parent="1" source="anim_executor" target="char_anim_service">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="135" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_service_to_animator" edge="1" parent="1" source="char_anim_service" target="animator">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="215" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- LEGEND -->
+        <mxCell id="legend_title" value="Legend:" style="text;html=1;fontSize=11;fontStyle=1;fillColor=none;strokeColor=none" vertex="1" parent="1">
+          <mxGeometry x="50" y="650" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend_game" value="■ Game Authority" style="text;html=1;fontSize=9;fillColor=none;strokeColor=none" vertex="1" parent="1">
+          <mxGeometry x="50" y="670" width="150" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_bridge" value="■ AI Bridge (Mediator)" style="text;html=1;fontSize=9;fillColor=none;strokeColor=none" vertex="1" parent="1">
+          <mxGeometry x="250" y="670" width="150" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_provider" value="■ AI Provider" style="text;html=1;fontSize=9;fillColor=none;strokeColor=none" vertex="1" parent="1">
+          <mxGeometry x="450" y="670" width="150" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_ui" value="■ UI / Text" style="text;html=1;fontSize=9;fillColor=none;strokeColor=none" vertex="1" parent="1">
+          <mxGeometry x="650" y="670" width="150" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_anim" value="■ Animation" style="text;html=1;fontSize=9;fillColor=none;strokeColor=none" vertex="1" parent="1">
+          <mxGeometry x="850" y="670" width="150" height="15" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

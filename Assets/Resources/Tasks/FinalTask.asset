@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38bf9db2ff1ede42a59ffec63f8a803, type: 3}
+  m_Name: FinalTask
+  m_EditorClassIdentifier: 
+  inTaskContexts:
+  - id: FT_buildup
+    text: Build up your edge. Let me know when you are there!
+    options:
+    - id: Fail
+      nextOption: 
+      label: Mercy
+      action: FT_Mercy
+      side: 1
+    - id: OnEdge
+      nextOption: 
+      label: Edged
+      action: OnEdge
+      side: 0
+  - id: FT_S2V1
+    text: I let you finish. In 10 seconds!
+    options:
+    - id: Finished
+      nextOption: 
+      label: Cumming
+      action: FT_Finished
+      side: 0
+  - id: FT_S2V2_Prep
+    text: Ok. I give you chance to finish! Exactly in 10 seconds.
+    options:
+    - id: FT_now
+      nextOption: 
+      label: Now
+      action: FT_NoOp
+      side: 0
+  - id: FT_S2V2_Main
+    text: '"HANDS OFF! RUIN IT!'
+    options:
+    - id: FT_Ruin
+      nextOption: 
+      label: I ruined
+      action: FT_Ruin
+      side: 0
+    - id: FT_S2_Fail
+      nextOption: 
+      label: I failed
+      action: FT_Failed
+      side: 1
+  - id: FT_S2V3_1
+    text: Useless. The last and only chance to finish
+    options:
+    - id: FT_thank
+      nextOption: 
+      label: Thank you
+      action: ContinueTask
+      side: 0
+  - id: FT_S2V3_2
+    text: Loose it in 10 SECOND!
+    options:
+    - id: FT_now
+      nextOption: 
+      label: Now
+      action: FT_NoOp
+      side: 0
+  - id: FT_S2V3_3
+    text: Did you really think I let you after your fail! No!
+    options:
+    - id: FT_noop
+      nextOption: 
+      label: Sorry
+      action: FT_V3_Continue_3
+      side: 0
+  - id: FT_S2V3_4
+    text: Now clean yourself. And... do whatever you want. Bye
+    options:
+    - id: FT_noop
+      nextOption: 
+      label: Sorry
+      action: FT_V3_Continue_4
+      side: 0
+  - id: FT_cooldown
+    text: Now cool down for a moment
+    options:
+    - id: FT_cd_timer
+      nextOption: 
+      label: 10
+      action: FT_NoOp
+      side: 0
+  - id: FT_S2V1_PAUSE
+    text: Poor thing, you are not ready. Let me think.
+    options:
+    - id: opt_sorry
+      nextOption: 
+      label: Sorry
+      action: FT_GoV2Prep
+      side: 0
+  startInTaskContextId: 
+  limitType: 0
+  timeLimitSeconds: 0
+  rhythmStepLimit: 0
+  id: FinalTask
+  title: 
+  description: 
+  engagementMin: 0
+  engagementMax: 100
+  weightEarly: 1
+  weightMid: 1
+  weightLate: 1
+  weightFinal: 1
+  taskType: 0
+  engagementReward: 0
+  animationSequence: []
+  sceneName: 
+  dialogueFileName: 
+  rhythmPattern: {fileID: 0}
+  startEmotion: 
+  endEmotion: 
+  baseRepeatCount: 0
+  baseMinTime: 0
+  baseMaxTime: 0
+  randomMinRepeats: 10
+  randomMaxRepeats: 45
+  extraMaxTimePadding: 10

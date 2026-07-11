@@ -1,0 +1,1198 @@
+{
+	"DTU Version" : 4,
+	"Asset Name" : "DAZ_Base",
+	"Import Name" : "P5 Classy Vibrator_674",
+	"Asset Type" : "StaticMesh",
+	"Use Experimental Animation Transfer" : true,
+	"Asset Id" : "P5 Classy Vibrator_674",
+	"Content Type" : "Unknown",
+	"FBX File" : "D:/Unity/XXXPROJECT2406/XXXProjectSuka/Assets/Animations/Daz3D/DAZ_Base/DAZ_Base.fbx",
+	"Base FBX File" : "D:/Unity/XXXPROJECT2406/XXXProjectSuka/Assets/Animations/Daz3D/DAZ_Base/DAZ_Base_base.fbx",
+	"HD FBX File" : "D:/Unity/XXXPROJECT2406/XXXProjectSuka/Assets/Animations/Daz3D/DAZ_Base/DAZ_Base_HD.fbx",
+	"Import Folder" : "D:/Unity/XXXPROJECT2406/XXXProjectSuka/Assets/Animations/Daz3D/DAZ_Base/",
+	"Product Name" : "",
+	"Product Component Name" : "",
+	"Materials" : [
+		{
+			"Version" : 4,
+			"Asset Name" : "P5 Classy Vibrator_674",
+			"Asset Label" : "Vibrator",
+			"Material Name" : "Tip",
+			"Material Type" : "DAZ Studio Default",
+			"Value" : "Unknown",
+			"Properties" : [
+				{
+					"Name" : "Diffuse Color",
+					"Label" : "Diffuse Color",
+					"Value" : "#fa8cd9",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Diffuse Strength",
+					"Label" : "Diffuse Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Glossiness",
+					"Label" : "Glossiness",
+					"Value" : 0.95,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Color",
+					"Label" : "Specular Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Strength",
+					"Label" : "Specular Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Multiply Specular Through Opacity",
+					"Label" : "Multiply Specular Through Opacity",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Color",
+					"Label" : "Ambient Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Strength",
+					"Label" : "Ambient Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Opacity Strength",
+					"Label" : "Opacity Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Bump Strength",
+					"Label" : "Bump Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Negative Bump",
+					"Label" : "Negative Bump",
+					"Value" : -0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Positive Bump",
+					"Label" : "Positive Bump",
+					"Value" : 0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Displacement Strength",
+					"Label" : "Displacement Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Minimum Displacement",
+					"Label" : "Minimum Displacement",
+					"Value" : -0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Maximum Displacement",
+					"Label" : "Maximum Displacement",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Normal Map",
+					"Label" : "Normal Map",
+					"Value" : "#fa8cd9",
+					"Data Type" : "Texture",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Color",
+					"Label" : "Reflection Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Strength",
+					"Label" : "Reflection Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Color",
+					"Label" : "Refraction Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Strength",
+					"Label" : "Refraction Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Index of Refraction",
+					"Label" : "Index of Refraction",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Sheen Color",
+					"Label" : "Sheen Color",
+					"Value" : "#666666",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Scatter Color",
+					"Label" : "Scatter Color",
+					"Value" : "#cc260f",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Thickness",
+					"Label" : "Thickness",
+					"Value" : 0.25,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Tiles",
+					"Label" : "Horizontal Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Offset",
+					"Label" : "Horizontal Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Tiles",
+					"Label" : "Vertical Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Offset",
+					"Label" : "Vertical Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Lighting Model",
+					"Label" : "Lighting Model",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "UV Set",
+					"Label" : "UV Set",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth On",
+					"Label" : "Smooth",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth Angle",
+					"Label" : "Angle",
+					"Value" : 89.9,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Preview Color",
+					"Label" : "Line Preview Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Start Width",
+					"Label" : "Line Start Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line End Width",
+					"Label" : "Line End Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line UV Width",
+					"Label" : "Line UV Width",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Render Priority",
+					"Label" : "Render Priority",
+					"Value" : 3,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Propagate Priority",
+					"Label" : "Propagate Priority",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Follow Blend",
+					"Label" : "Follow Blend",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				}
+			]
+		},
+		{
+			"Version" : 4,
+			"Asset Name" : "P5 Classy Vibrator_674",
+			"Asset Label" : "Vibrator",
+			"Material Name" : "Tip2",
+			"Material Type" : "DAZ Studio Default",
+			"Value" : "Unknown",
+			"Properties" : [
+				{
+					"Name" : "Diffuse Color",
+					"Label" : "Diffuse Color",
+					"Value" : "#de22eb",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Diffuse Strength",
+					"Label" : "Diffuse Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Glossiness",
+					"Label" : "Glossiness",
+					"Value" : 0.95,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Color",
+					"Label" : "Specular Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Strength",
+					"Label" : "Specular Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Multiply Specular Through Opacity",
+					"Label" : "Multiply Specular Through Opacity",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Color",
+					"Label" : "Ambient Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Strength",
+					"Label" : "Ambient Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Opacity Strength",
+					"Label" : "Opacity Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Bump Strength",
+					"Label" : "Bump Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Negative Bump",
+					"Label" : "Negative Bump",
+					"Value" : -0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Positive Bump",
+					"Label" : "Positive Bump",
+					"Value" : 0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Displacement Strength",
+					"Label" : "Displacement Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Minimum Displacement",
+					"Label" : "Minimum Displacement",
+					"Value" : -0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Maximum Displacement",
+					"Label" : "Maximum Displacement",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Normal Map",
+					"Label" : "Normal Map",
+					"Value" : "#de22eb",
+					"Data Type" : "Texture",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Color",
+					"Label" : "Reflection Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Strength",
+					"Label" : "Reflection Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Color",
+					"Label" : "Refraction Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Strength",
+					"Label" : "Refraction Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Index of Refraction",
+					"Label" : "Index of Refraction",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Sheen Color",
+					"Label" : "Sheen Color",
+					"Value" : "#666666",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Scatter Color",
+					"Label" : "Scatter Color",
+					"Value" : "#cc260f",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Thickness",
+					"Label" : "Thickness",
+					"Value" : 0.25,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Tiles",
+					"Label" : "Horizontal Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Offset",
+					"Label" : "Horizontal Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Tiles",
+					"Label" : "Vertical Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Offset",
+					"Label" : "Vertical Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Lighting Model",
+					"Label" : "Lighting Model",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "UV Set",
+					"Label" : "UV Set",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth On",
+					"Label" : "Smooth",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth Angle",
+					"Label" : "Angle",
+					"Value" : 89.9,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Preview Color",
+					"Label" : "Line Preview Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Start Width",
+					"Label" : "Line Start Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line End Width",
+					"Label" : "Line End Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line UV Width",
+					"Label" : "Line UV Width",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Render Priority",
+					"Label" : "Render Priority",
+					"Value" : 3,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Propagate Priority",
+					"Label" : "Propagate Priority",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Follow Blend",
+					"Label" : "Follow Blend",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				}
+			]
+		},
+		{
+			"Version" : 4,
+			"Asset Name" : "P5 Classy Vibrator_674",
+			"Asset Label" : "Vibrator",
+			"Material Name" : "Shaft",
+			"Material Type" : "DAZ Studio Default",
+			"Value" : "Unknown",
+			"Properties" : [
+				{
+					"Name" : "Diffuse Color",
+					"Label" : "Diffuse Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Diffuse Strength",
+					"Label" : "Diffuse Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Glossiness",
+					"Label" : "Glossiness",
+					"Value" : 0.95,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Color",
+					"Label" : "Specular Color",
+					"Value" : "#999999",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Strength",
+					"Label" : "Specular Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Multiply Specular Through Opacity",
+					"Label" : "Multiply Specular Through Opacity",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Color",
+					"Label" : "Ambient Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Strength",
+					"Label" : "Ambient Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Opacity Strength",
+					"Label" : "Opacity Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Bump Strength",
+					"Label" : "Bump Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Negative Bump",
+					"Label" : "Negative Bump",
+					"Value" : -0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Positive Bump",
+					"Label" : "Positive Bump",
+					"Value" : 0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Displacement Strength",
+					"Label" : "Displacement Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Minimum Displacement",
+					"Label" : "Minimum Displacement",
+					"Value" : -0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Maximum Displacement",
+					"Label" : "Maximum Displacement",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Normal Map",
+					"Label" : "Normal Map",
+					"Value" : "#ffffff",
+					"Data Type" : "Texture",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Color",
+					"Label" : "Reflection Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Strength",
+					"Label" : "Reflection Strength",
+					"Value" : 0.6184211,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Color",
+					"Label" : "Refraction Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Strength",
+					"Label" : "Refraction Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Index of Refraction",
+					"Label" : "Index of Refraction",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Sheen Color",
+					"Label" : "Sheen Color",
+					"Value" : "#666666",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Scatter Color",
+					"Label" : "Scatter Color",
+					"Value" : "#cc260f",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Thickness",
+					"Label" : "Thickness",
+					"Value" : 0.25,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Tiles",
+					"Label" : "Horizontal Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Offset",
+					"Label" : "Horizontal Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Tiles",
+					"Label" : "Vertical Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Offset",
+					"Label" : "Vertical Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Lighting Model",
+					"Label" : "Lighting Model",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "UV Set",
+					"Label" : "UV Set",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth On",
+					"Label" : "Smooth",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth Angle",
+					"Label" : "Angle",
+					"Value" : 89.9,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Preview Color",
+					"Label" : "Line Preview Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Start Width",
+					"Label" : "Line Start Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line End Width",
+					"Label" : "Line End Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line UV Width",
+					"Label" : "Line UV Width",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Render Priority",
+					"Label" : "Render Priority",
+					"Value" : 3,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Propagate Priority",
+					"Label" : "Propagate Priority",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Follow Blend",
+					"Label" : "Follow Blend",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				}
+			]
+		},
+		{
+			"Version" : 4,
+			"Asset Name" : "P5 Classy Vibrator_674",
+			"Asset Label" : "Vibrator",
+			"Material Name" : "Base",
+			"Material Type" : "DAZ Studio Default",
+			"Value" : "Unknown",
+			"Properties" : [
+				{
+					"Name" : "Diffuse Color",
+					"Label" : "Diffuse Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Diffuse Strength",
+					"Label" : "Diffuse Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Glossiness",
+					"Label" : "Glossiness",
+					"Value" : 0.95,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Color",
+					"Label" : "Specular Color",
+					"Value" : "#999999",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Specular Strength",
+					"Label" : "Specular Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Multiply Specular Through Opacity",
+					"Label" : "Multiply Specular Through Opacity",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Color",
+					"Label" : "Ambient Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Ambient Strength",
+					"Label" : "Ambient Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Opacity Strength",
+					"Label" : "Opacity Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Bump Strength",
+					"Label" : "Bump Strength",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Negative Bump",
+					"Label" : "Negative Bump",
+					"Value" : -0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Positive Bump",
+					"Label" : "Positive Bump",
+					"Value" : 0.01,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Displacement Strength",
+					"Label" : "Displacement Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Minimum Displacement",
+					"Label" : "Minimum Displacement",
+					"Value" : -0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Maximum Displacement",
+					"Label" : "Maximum Displacement",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Normal Map",
+					"Label" : "Normal Map",
+					"Value" : "#000000",
+					"Data Type" : "Texture",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Color",
+					"Label" : "Reflection Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Reflection Strength",
+					"Label" : "Reflection Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Color",
+					"Label" : "Refraction Color",
+					"Value" : "#ffffff",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Refraction Strength",
+					"Label" : "Refraction Strength",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Index of Refraction",
+					"Label" : "Index of Refraction",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Sheen Color",
+					"Label" : "Sheen Color",
+					"Value" : "#666666",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Scatter Color",
+					"Label" : "Scatter Color",
+					"Value" : "#cc260f",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Thickness",
+					"Label" : "Thickness",
+					"Value" : 0.25,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Tiles",
+					"Label" : "Horizontal Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Horizontal Offset",
+					"Label" : "Horizontal Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Tiles",
+					"Label" : "Vertical Tiles",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Vertical Offset",
+					"Label" : "Vertical Offset",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Lighting Model",
+					"Label" : "Lighting Model",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "UV Set",
+					"Label" : "UV Set",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth On",
+					"Label" : "Smooth",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Smooth Angle",
+					"Label" : "Angle",
+					"Value" : 89.9,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Preview Color",
+					"Label" : "Line Preview Color",
+					"Value" : "#000000",
+					"Data Type" : "Color",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line Start Width",
+					"Label" : "Line Start Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line End Width",
+					"Label" : "Line End Width (mm)",
+					"Value" : 0.1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Line UV Width",
+					"Label" : "Line UV Width",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Render Priority",
+					"Label" : "Render Priority",
+					"Value" : 3,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Propagate Priority",
+					"Label" : "Propagate Priority",
+					"Value" : 0,
+					"Data Type" : "Double",
+					"Texture" : ""
+				},
+				{
+					"Name" : "Follow Blend",
+					"Label" : "Follow Blend",
+					"Value" : 1,
+					"Data Type" : "Double",
+					"Texture" : ""
+				}
+			]
+		}
+	],
+	"Morphs" : [
+	],
+	"MorphLinks" : {
+	},
+	"MorphNames" : [
+	],
+	"SkeletonData" : {
+		"skeletonScale" : [
+			"skeletonScale",
+			1
+		],
+		"offset" : [
+			"offset",
+			0
+		]
+	},
+	"HeadTailData" : {
+	},
+	"JointOrientation" : {
+	},
+	"LimitData" : {
+	},
+	"PoseData" : {
+		"P5 Classy Vibrator_674" : {
+			"Name" : "P5 Classy Vibrator_674",
+			"Label" : "Vibrator",
+			"Object Type" : "MESH",
+			"Object" : "P5 Classy Vibrator_674",
+			"Position" : [
+				-0.08548546,
+				9.062604,
+				1.778489
+			],
+			"Rotation" : [
+				0,
+				-91.15083,
+				0
+			],
+			"Scale" : [
+				1,
+				1,
+				1
+			]
+		}
+	},
+	"Subdivisions" : [
+	],
+	"dForce" : [
+	]
+}
