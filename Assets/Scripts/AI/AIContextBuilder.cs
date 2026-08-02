@@ -1,49 +1,52 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public static class AIContextBuilder
 {
     public static AIDirectorRequest BuildRequest(
-        AIInteractionSession session,
+        AISessionSnapshot snapshot,
+        AISessionBlueprint blueprint,
         string playerIntent,
         string playerText,
         AITagDatabase tagDatabase)
     {
-        if (session == null)
-            throw new ArgumentNullException(nameof(session));
+        if (snapshot == null)
+            throw new ArgumentNullException(nameof(snapshot));
 
-        var blueprint = session.Blueprint;
-        var chapter = blueprint?.GetChapter(session.CurrentChapterId);
+        var chapter = blueprint?.GetChapter(snapshot.CurrentChapterId);
 
         if (blueprint == null)
         {
-            Debug.LogWarning("[AIContextBuilder] session.Blueprint is null — using empty blueprint defaults.");
+            Debug.LogWarning("[AIContextBuilder] Resolved Blueprint is null - using empty Blueprint defaults.");
+        }
+        else if (!string.Equals(snapshot.BlueprintId, blueprint.blueprintId, StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Resolved Blueprint does not match the Session Snapshot BlueprintId.");
         }
 
         if (chapter == null)
         {
-            Debug.LogWarning($"[AIContextBuilder] chapter '{session.CurrentChapterId}' not found on blueprint; using empty chapter defaults.");
+            Debug.LogWarning($"[AIContextBuilder] Chapter '{snapshot.CurrentChapterId}' not found on Blueprint; using empty Chapter defaults.");
         }
 
         return new AIDirectorRequest
         {
-            SessionId = session.SessionId ?? string.Empty,
-            TurnIndex = session.TurnIndex,
+            SessionId = snapshot.SessionId,
+            TurnIndex = snapshot.TurnIndex,
 
-            BlueprintId = blueprint?.blueprintId ?? string.Empty,
-            CurrentChapterId = session.CurrentChapterId ?? string.Empty,
+            BlueprintId = snapshot.BlueprintId,
+            CurrentChapterId = snapshot.CurrentChapterId,
             ChapterGoal = chapter?.goal ?? string.Empty,
             ChapterInstructions = chapter?.instructions ?? string.Empty,
             FlowMode = blueprint != null ? blueprint.flowMode.ToString() : AISessionFlowMode.Linear.ToString(),
 
-            RecentTurns = session.RecentTurns != null ? session.RecentTurns.ToArray() : new AIConversationTurn[0],
+            RecentTurns = snapshot.RecentTurns.Select(turn => turn.ToLegacyDto()).ToArray(),
             PlayerIntent = playerIntent ?? string.Empty,
             PlayerText = playerText ?? string.Empty,
 
-            AllowedCommands = chapter?.allowedCommands != null ? chapter.allowedCommands : new string[0],
-            AllowedNextChapterIds = chapter?.allowedNextChapterIds != null ? chapter.allowedNextChapterIds : new string[0]
+            AllowedCommands = chapter?.allowedCommands ?? Array.Empty<string>(),
+            AllowedNextChapterIds = chapter?.allowedNextChapterIds ?? Array.Empty<string>()
         };
     }
 }

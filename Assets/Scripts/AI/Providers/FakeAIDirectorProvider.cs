@@ -15,6 +15,7 @@ public class FakeAIDirectorProvider : IAIDirectorProvider
             ConversationIntent = "Greeting",
             ExpressionTag = "Smile",
             BodyIntent = "Idle",
+            AnimationDirective = "idle",
             GameplayCommand = "MoveToNextChapter",
             CameraIntent = "FocusFace",
             PlayerOptions = new List<AIPlayerOptionDto>
@@ -32,6 +33,22 @@ public class FakeAIDirectorProvider : IAIDirectorProvider
         switch (chapterId)
         {
             case "start":
+                if (request != null && request.RecentTurns != null && request.RecentTurns.Length > 0)
+                {
+                    return new AIDirectorResponse
+                    {
+                        TextLine = "The task has finished. We can wrap up here.",
+                        EmotionTag = "neutral",
+                        ConversationIntent = "Goodbye",
+                        ExpressionTag = "Smile",
+                        BodyIntent = "Idle",
+                        AnimationDirective = "idle",
+                        GameplayCommand = "EndSession",
+                        CameraIntent = "FocusFace",
+                        PlayerOptions = new List<AIPlayerOptionDto>()
+                    };
+                }
+
                 return new AIDirectorResponse
                 {
                     TextLine = "Session started.",
@@ -39,6 +56,7 @@ public class FakeAIDirectorProvider : IAIDirectorProvider
                     ConversationIntent = "Greeting",
                     ExpressionTag = "Smile",
                     BodyIntent = "Idle",
+                    AnimationDirective = "hand_job",
                     GameplayCommand = "MoveToNextChapter",
                     CameraIntent = "FocusFace",
                     PlayerOptions = new List<AIPlayerOptionDto>
@@ -55,6 +73,7 @@ public class FakeAIDirectorProvider : IAIDirectorProvider
                     ConversationIntent = "Question",
                     ExpressionTag = "Smile",
                     BodyIntent = "Talk",
+                    AnimationDirective = "idle",
                     GameplayCommand = "MoveToNextChapter",
                     CameraIntent = "FocusFace",
                     PlayerOptions = new List<AIPlayerOptionDto>
@@ -72,6 +91,7 @@ public class FakeAIDirectorProvider : IAIDirectorProvider
                     ConversationIntent = "Answer",
                     ExpressionTag = "Smile",
                     BodyIntent = "Talk",
+                    AnimationDirective = "idle",
                     GameplayCommand = "MoveToNextChapter",
                     CameraIntent = "FocusFace",
                     PlayerOptions = new List<AIPlayerOptionDto>
@@ -88,6 +108,7 @@ public class FakeAIDirectorProvider : IAIDirectorProvider
                     ConversationIntent = "Goodbye",
                     ExpressionTag = "Smile",
                     BodyIntent = "Idle",
+                    AnimationDirective = "idle",
                     GameplayCommand = "EndSession",
                     CameraIntent = "FocusFace",
                     PlayerOptions = new List<AIPlayerOptionDto>()

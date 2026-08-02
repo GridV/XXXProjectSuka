@@ -7,8 +7,14 @@ public class AIDirectorValidatorDebugTester : MonoBehaviour
     [SerializeField]
     private AITagDatabase tagDatabase;
 
+    [SerializeField]
+    private bool autoRunOnStart = false;
+
     void Start()
     {
+        if (!autoRunOnStart)
+            return;
+
         TestValidResponse();
         TestInvalidResponse();
     }

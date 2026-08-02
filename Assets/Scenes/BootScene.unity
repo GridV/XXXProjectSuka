@@ -1278,7 +1278,6 @@ GameObject:
   m_Component:
   - component: {fileID: 277477207}
   - component: {fileID: 277477206}
-  - component: {fileID: 277477208}
   m_Layer: 0
   m_Name: GameUiManager
   m_TagString: Untagged
@@ -1314,19 +1313,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &277477208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277477205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58fd866640d41a946bcadc7e185c4094, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueText: {fileID: 1085340446}
 --- !u!1 &293200897
 GameObject:
   m_ObjectHideFlags: 0
@@ -5383,7 +5369,6 @@ GameObject:
   - component: {fileID: 961739752}
   - component: {fileID: 961739751}
   - component: {fileID: 961739750}
-  - component: {fileID: 961739754}
   - component: {fileID: 961739755}
   m_Layer: 0
   m_Name: Main Camera
@@ -5510,18 +5495,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 23.034, y: 102.8, z: 0}
---- !u!114 &961739754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961739749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 722a9c0304b6a0d4e890f24a71c96827, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &961739755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7168,7 +7141,6 @@ GameObject:
   - component: {fileID: 1323450635}
   - component: {fileID: 1323450638}
   - component: {fileID: 1323450637}
-  - component: {fileID: 1323450636}
   m_Layer: 5
   m_Name: FinalTaskClothingPanel
   m_TagString: Untagged
@@ -7199,22 +7171,6 @@ RectTransform:
   m_AnchoredPosition: {x: -282.8, y: -300.9}
   m_SizeDelta: {x: 350, y: 289.6}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1323450636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323450634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0488daf27a96fe4694faa70f9e3b39d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tshirtToggle: {fileID: 423357519}
-  shortsToggle: {fileID: 1820374389}
-  braToggle: {fileID: 159719717}
-  underwearToggle: {fileID: 235905389}
 --- !u!114 &1323450637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7450,7 +7406,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1874837992}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RigDebugUI, Assembly-CSharp
         m_MethodName: ToggleLook
         m_Mode: 1
@@ -7647,6 +7603,8 @@ GameObject:
   - component: {fileID: 1418653700}
   - component: {fileID: 1418653699}
   - component: {fileID: 1418653701}
+  - component: {fileID: 1418653702}
+  - component: {fileID: 1418653703}
   m_Layer: 0
   m_Name: AIBridge
   m_TagString: Untagged
@@ -7666,7 +7624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64c98c9243307f64cb79cb235ae783c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runOnStart: 1
   currentSession:
     SessionId: 
     TurnIndex: 0
@@ -7675,7 +7632,6 @@ MonoBehaviour:
     State: 0
     RecentTurns: []
     MaxRecentTurns: 10
-  sessionBlueprint: {fileID: 11400000, guid: 29e62de60fa30a544ad23b25531fecb4, type: 2}
   tagDatabase: {fileID: 11400000, guid: 0469471a2ccb7c544b094f8b9c087d80, type: 2}
   textOptionPresenter: {fileID: 1766013887}
   responseExecutor: {fileID: 1418653701}
@@ -7708,6 +7664,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textOptionPresenter: {fileID: 1766013887}
   animationExecutor: {fileID: 0}
+  sessionDirector: {fileID: 1418653702}
+--- !u!114 &1418653702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418653698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ba202ee097449418db4f038e8cca43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultBlueprint: {fileID: 11400000, guid: 29e62de60fa30a544ad23b25531fecb4, type: 2}
+  aiBridge: {fileID: 1418653699}
+  autoStartOnPlay: 0
+--- !u!114 &1418653703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418653698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b798c6523f2271489cedd25947687f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiResponseExecutor: {fileID: 1418653701}
+  aiSessionDirector: {fileID: 1418653702}
 --- !u!1 &1452384488
 GameObject:
   m_ObjectHideFlags: 0
@@ -8102,7 +8088,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1503666108}
   - component: {fileID: 1503666110}
-  - component: {fileID: 1503666109}
   m_Layer: 0
   m_Name: TaskOptionsPanel
   m_TagString: Untagged
@@ -8132,30 +8117,6 @@ RectTransform:
   m_AnchoredPosition: {x: -2487.15, y: 600}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1503666109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1503666107}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a864d33e42f0a3549af9d09ca51df4ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableFade: 1
-  fadeOutSeconds: 0.5
-  fadeInSeconds: 0.5
-  canvasGroup: {fileID: 0}
-  positiveButtons:
-  - {fileID: 501641803}
-  - {fileID: 651280506}
-  negativeButtons:
-  - {fileID: 652296334}
-  - {fileID: 378971683}
-  mainText: {fileID: 63130979}
-  mainTextContainer: {fileID: 1999939992}
 --- !u!225 &1503666110
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9138,7 +9099,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1874837992}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RigDebugUI, Assembly-CSharp
         m_MethodName: ToggleArms
         m_Mode: 1
@@ -9990,15 +9951,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1874837988}
-  - component: {fileID: 1874837987}
-  - component: {fileID: 1874837986}
-  - component: {fileID: 1874837985}
-  - component: {fileID: 1874837984}
-  - component: {fileID: 1874837983}
   - component: {fileID: 1874837982}
   - component: {fileID: 1874837989}
   - component: {fileID: 1874837991}
-  - component: {fileID: 1874837992}
   m_Layer: 0
   m_Name: GameBoot
   m_TagString: Untagged
@@ -10026,91 +9981,6 @@ MonoBehaviour:
   currentPattern: {fileID: 0}
   visualizer: {fileID: 697891946}
   autoStart: 0
---- !u!114 &1874837983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874837981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef27e4e4135ad3e42a20c96c56220d3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1874837984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874837981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be07514571a67c044ad6722f9fc2f87d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  engagementBar: {fileID: 1133907612}
-  dialogueUI: {fileID: 2030907146}
-  dialogueManager: {fileID: 0}
-  rhythmManager: {fileID: 0}
---- !u!114 &1874837985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874837981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e739516276fc4d946a59159e4c83e24a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TaskContext:
-    currentTask: {fileID: 0}
-    dialogueActionAdapter: {fileID: 0}
-    controller: {fileID: 0}
-    dialogueUI: {fileID: 0}
-    dialogueManager: {fileID: 0}
-    rhythmManager: {fileID: 0}
-    animator: {fileID: 0}
-    sessionStats: {fileID: 0}
-    taskManager: {fileID: 0}
-    characterAnimation: {fileID: 0}
-    cameraMoveService: {fileID: 0}
-    danceCameraService: {fileID: 0}
-    rigService: {fileID: 0}
-    facial: {fileID: 0}
---- !u!114 &1874837986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874837981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19fb175380035894aaedcff58128c5a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stateController: {fileID: 1874837987}
-  defaultEnvironmentSceneName: Env_Default
---- !u!114 &1874837987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874837981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a2085d835a03c409d3ead844abf4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueUI: {fileID: 2030907146}
-  taskOptionsUI: {fileID: 1503666109}
-  pauseMenu: {fileID: 0}
-  currentState: 0
 --- !u!4 &1874837988
 Transform:
   m_ObjectHideFlags: 0
@@ -10152,19 +10022,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b798c6523f2271489cedd25947687f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1874837992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874837981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ac2028c2ab17dd4e8e216708983c4d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeSeconds: 0.2
+  aiResponseExecutor: {fileID: 1418653701}
+  aiSessionDirector: {fileID: 0}
 --- !u!1 &1878920529 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8781782893664959658, guid: 8c0655eca10a74a6b889ac6e60f818c3, type: 3}
@@ -10795,7 +10654,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2030907145}
   - component: {fileID: 2030907147}
-  - component: {fileID: 2030907146}
   m_Layer: 0
   m_Name: DialoguePanel
   m_TagString: Untagged
@@ -10825,32 +10683,6 @@ RectTransform:
   m_AnchoredPosition: {x: -2487.15, y: 600}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2030907146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030907144}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08203b8b86c31ca4192dec7d524581d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableFade: 1
-  fadeOutSeconds: 0.5
-  fadeInSeconds: 0.5
-  canvasGroup: {fileID: 0}
-  dialogueManager: {fileID: 0}
-  npcText: {fileID: 1085340446}
-  leftButtons:
-  - {fileID: 302973526}
-  - {fileID: 882325123}
-  rightButtons:
-  - {fileID: 1292728307}
-  - {fileID: 482009465}
-  stateController: {fileID: 0}
-  mainTextContainer: {fileID: 1552530417}
 --- !u!225 &2030907147
 CanvasGroup:
   m_ObjectHideFlags: 0

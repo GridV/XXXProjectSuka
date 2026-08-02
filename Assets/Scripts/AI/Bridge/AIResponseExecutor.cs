@@ -11,13 +11,58 @@ public class AIResponseExecutor : MonoBehaviour
     [SerializeField]
     private AIAnimationExecutor animationExecutor;
 
+    [SerializeField]
+    private AISessionDirector sessionDirector;
+
     private void Awake()
     {
         if (textOptionPresenter == null)
             textOptionPresenter = FindFirstObjectByType<AITextOptionPresenter>();
 
+        if (sessionDirector == null)
+            sessionDirector = FindFirstObjectByType<AISessionDirector>();
+    }
+
+    public void BindSceneRuntime(SceneRuntimeBinder binder)
+    {
+        if (binder == null)
+        {
+            Debug.LogWarning("[AIResponseExecutor] BindSceneRuntime received a null binder.");
+            return;
+        }
+
+        if (binder.AIAnimationExecutor == null)
+        {
+            Debug.LogWarning("[AIResponseExecutor] Animation executor missing inside binder; scene runtime not bound.");
+            return;
+        }
+
+        animationExecutor = binder.AIAnimationExecutor;
+        Debug.Log($"[AIResponseExecutor] Scene runtime bound: {binder.name} -> {animationExecutor.name}");
+    }
+
+    public void UnbindSceneRuntime(SceneRuntimeBinder binder)
+    {
+        if (binder == null)
+        {
+            Debug.LogWarning("[AIResponseExecutor] UnbindSceneRuntime received a null binder.");
+            return;
+        }
+
         if (animationExecutor == null)
-            animationExecutor = FindFirstObjectByType<AIAnimationExecutor>();
+        {
+            Debug.Log("[AIResponseExecutor] Scene runtime unbound: no active animation executor.");
+            return;
+        }
+
+        if (binder.AIAnimationExecutor != null && animationExecutor == binder.AIAnimationExecutor)
+        {
+            animationExecutor = null;
+            Debug.Log($"[AIResponseExecutor] Scene runtime unbound: {binder.name}");
+            return;
+        }
+
+        Debug.Log($"[AIResponseExecutor] Scene runtime unbound: {binder.name} (no active binding)");
     }
 
     // Execute the response: present text/options and trigger animations.
@@ -57,10 +102,11 @@ public class AIResponseExecutor : MonoBehaviour
                 var selected = AIAnimationSelector.SelectBest(tags);
                 if (selected != null)
                 {
-                    Debug.Log($"[AIResponseExecutor] Executing animation id='{selected.Id}' for tags [{string.Join(", ", tags)}].");
+                    Debug.Log($"[AIResponseExecutor] AI selected animation id='{selected.Id}' for tags [{string.Join(", ", tags)}].");
                     try
                     {
-                        animationExecutor.TryPlay(selected);
+                        var animationStarted = animationExecutor.TryPlay(selected);
+                        Debug.Log($"[AIResponseExecutor] Animation started: {animationStarted} (id='{selected.Id}').");
                     }
                     catch (Exception ex)
                     {
@@ -78,10 +124,39 @@ public class AIResponseExecutor : MonoBehaviour
             }
         }
 
-        // 3) Handle command placeholders
+        // 3) Handle gameplay commands
         if (!string.IsNullOrWhiteSpace(response.GameplayCommand))
         {
-            Debug.Log($"[AIResponseExecutor] Received GameplayCommand (placeholder): {response.GameplayCommand}");
+            var command = response.GameplayCommand.Trim();
+            if (string.Equals(command, "EndSession", StringComparison.Ordinal))
+            {
+                if (sessionDirector != null)
+                {
+                    Debug.Log($"[AIResponseExecutor] Forwarding GameplayCommand to AISessionDirector: {command}");
+                    sessionDirector.EndSession();
+                }
+                else
+                {
+                    Debug.LogError("[AIResponseExecutor] AISessionDirector is not assigned or found; cannot finalize session for GameplayCommand EndSession.");
+                }
+            }
+            else if (command.StartsWith("StartTask", StringComparison.OrdinalIgnoreCase))
+            {
+                var taskId = ExtractTaskId(command);
+                if (!string.IsNullOrWhiteSpace(taskId))
+                {         
+                        Debug.LogError("[AIResponseExecutor] TaskRunner is not assigned or found; cannot start task for gameplay command.");
+                    
+                }
+                else
+                {
+                    Debug.LogError($"[AIResponseExecutor] GameplayCommand '{command}' did not include a task id.");
+                }
+            }
+            else
+            {
+                Debug.Log($"[AIResponseExecutor] Received GameplayCommand: {command}");
+            }
         }
 
         // If response contains a next chapter hint, log placeholder (field may not exist in current response model)
@@ -96,16 +171,43 @@ public class AIResponseExecutor : MonoBehaviour
 
     private string[] GetRequestedAnimationTags(AIDirectorResponse response)
     {
-        if (response == null) return new string[0];
+        if (response == null)
+            return Array.Empty<string>();
 
-        var tags = new List<string>();
+        // Explicit directive is authoritative.
+        if (!string.IsNullOrWhiteSpace(response.AnimationDirective))
+        {
+            return new[]
+            {
+            response.AnimationDirective.Trim().ToLowerInvariant()
+        };
+        }
+
+        // BodyIntent is only a fallback.
         if (!string.IsNullOrWhiteSpace(response.BodyIntent))
-            tags.Add(response.BodyIntent.Trim().ToLowerInvariant());
-        if (!string.IsNullOrWhiteSpace(response.ExpressionTag))
-            tags.Add(response.ExpressionTag.Trim().ToLowerInvariant());
-        if (!string.IsNullOrWhiteSpace(response.ConversationIntent))
-            tags.Add(response.ConversationIntent.Trim().ToLowerInvariant());
+        {
+            return new[]
+            {
+            response.BodyIntent.Trim().ToLowerInvariant()
+        };
+        }
 
-        return tags.ToArray();
+        return Array.Empty<string>();
+    }
+
+    private string ExtractTaskId(string command)
+    {
+        if (string.IsNullOrWhiteSpace(command))
+            return string.Empty;
+
+        var startIndex = command.IndexOf('(');
+        var endIndex = command.LastIndexOf(')');
+        if (startIndex >= 0 && endIndex > startIndex + 1)
+            return command.Substring(startIndex + 1, endIndex - startIndex - 1).Trim();
+
+        if (command.StartsWith("StartTask:", StringComparison.OrdinalIgnoreCase))
+            return command.Substring("StartTask:".Length).Trim();
+
+        return string.Empty;
     }
 }

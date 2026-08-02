@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5A4DA2D6-0974-BB3B-D9A0-8119A2953F5C}</ProjectGuid>
+    <ProjectGuid>{1B108B97-5CFB-62CD-A91C-E4F627A76630}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,92 +62,167 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Tasks\InTaskOption.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintAuthoring\BlueprintAsset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\AI\AIDirectorValidationResult.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\BeatConstraints.cs" />
+    <Compile Include="Assets\Scripts\AI\AISessionSnapshot.cs" />
     <Compile Include="Assets\Scripts\PauseMenuController.cs" />
-    <Compile Include="Assets\Daz3D\Scripts\Daz3DInstance.cs" />
+    <Compile Include="Assets\Scripts\Core\ITaskLimitController.cs" />
+    <Compile Include="Assets\Scripts\AI\AIDirectorEngine.cs" />
+    <Compile Include="Assets\Scripts\AI\AISessionDirector.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Core\GameBootRoot.cs" />
+    <Compile Include="Assets\Scripts\AI\Animation\AIAnimationDefinition.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
+    <Compile Include="Assets\Scripts\Helpers\CameraMoveService.cs" />
+    <Compile Include="Assets\Scripts\AI\Animation\AIAnimationExecutor.cs" />
+    <Compile Include="Assets\Scripts\Helpers\CinemachineDanceSwitcher.cs" />
+    <Compile Include="Assets\Scripts\Core\SessionStatsService.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\BeatDefinition.cs" />
+    <Compile Include="Assets\Scripts\AI\Debug\AIAnimationSelectorDebugTester.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Random\IRng.cs" />
     <Compile Include="Assets\Scripts\SettingsMenu.cs" />
-    <Compile Include="Assets\Daz3D\Scripts\CollapsedVertexArray.cs" />
+    <Compile Include="Assets\Scripts\AI\AIPlayerIntent.cs" />
+    <Compile Include="Assets\Scripts\AI\Tags\AITagDefinition.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\BeatReference.cs" />
+    <Compile Include="Assets\Scripts\AI\Bridge\AIBridge.cs" />
     <Compile Include="Assets\Scripts\Rhythm\RhythmPulseVisualizer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\GUI Kit - Neon\Scripts\PanelNeon.cs" />
     <Compile Include="Assets\Scripts\Tasks\TaskData.cs" />
-    <Compile Include="Assets\Scripts\Tasks\TaskManager.cs" />
+    <Compile Include="Assets\Scripts\Helpers\EdgeLadderCinemachineSwitcher.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\BlueprintDefinition.cs" />
+    <Compile Include="Assets\Scripts\Helpers\ClothingService.cs" />
+    <Compile Include="Assets\Scripts\AI\AISessionFlowController.cs" />
+    <Compile Include="Assets\Scripts\AI\AIDirectorRequest.cs" />
+    <Compile Include="Assets\Scripts\AI\Animation\AIAnimatorFloatParameter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Scripts\Helpers\CharacterRigService.cs" />
+    <Compile Include="Assets\Animations\Behaviour\StateEnterEventBehaviour.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\AI\AISessionBlueprint.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintAuthoring\BlueprintDefinitionAdapter.cs" />
+    <Compile Include="Assets\Scripts\AI\AIInteractionSession.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\UI\RhythmVisualizerUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\BeatRequirements.cs" />
+    <Compile Include="Assets\Scripts\AI\Debug\AIAnimationExecutorDebugTester.cs" />
+    <Compile Include="Assets\Scripts\AI\UI\AITextOptionPresenter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
+    <Compile Include="Assets\Scripts\AI\Animation\AIAnimationSelector.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Animations\Scripts\DebugTaskStarter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\AI\AIDirectorResponse.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\Scripts\AI\UI\AIInteractionUIController.cs" />
+    <Compile Include="Assets\Scripts\Helpers\FacialExpressionController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\UI\NeonEngagementBar.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\UI\OptionGroupAligner.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\Animations\AnimationCleanupTool.cs" />
+    <Compile Include="Assets\Scripts\AI\Providers\FakeAIDirectorProvider.cs" />
+    <Compile Include="Assets\Scripts\AI\Bridge\AIResponseExecutor.cs" />
+    <Compile Include="Assets\Animations\Scripts\AdvancedBlink.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Random\GameDesicionService.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Daz3D\Scripts\ClothTools.cs" />
+    <Compile Include="Assets\Animations\Scripts\AnimatorEventRouter.cs" />
+    <Compile Include="Assets\Scripts\AI\Providers\IAIDirectorProvider.cs" />
+    <Compile Include="Assets\Scripts\AI\Animation\AIAnimationDictionary.cs" />
+    <Compile Include="Assets\Scripts\Helpers\CharacterAnimationService.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Rhythm\RhythmController.cs" />
+    <Compile Include="Assets\Scripts\Helpers\ClothingConfig.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Random\SystemRng.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintAuthoring\BeatAsset.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Random\EngagementSnapshot.cs" />
+    <Compile Include="Assets\Scripts\AI\AIConversationTurn.cs" />
+    <Compile Include="Assets\Scripts\Tasks\InTaskContext.cs" />
+    <Compile Include="Assets\Scripts\AI\AIPlayerOptionDto.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\GameplayCommandDefinition.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\ChapterDefinition.cs" />
+    <Compile Include="Assets\Scripts\AI\Debug\AIDirectorValidatorDebugTester.cs" />
     <Compile Include="Assets\Scripts\Rhythm\RhythmPattern.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintAuthoring\BlueprintAuthoringData.cs" />
+    <Compile Include="Assets\Scripts\AI\AIContextBuilder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\Scripts\Extra\EdgeLadderCameraTarget.cs" />
+    <Compile Include="Assets\Scripts\AI\Validation\AIDirectorResponseValidator.cs" />
     <Compile Include="Assets\Scripts\Tasks\TaskEnum.cs" />
-    <Compile Include="Assets\Scripts\Tasks\TaskRunner.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+    <Compile Include="Assets\Scripts\Tasks\TaskLimitType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Daz3D\Scripts\Utilities.cs" />
+    <Compile Include="Assets\Scripts\AI\BlueprintRuntime\BeatCooldown.cs" />
+    <Compile Include="Assets\Scripts\Core\TaskLimitController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
-    <Compile Include="Assets\Daz3D\Scripts\ClothCollisionAssigner.cs" />
+    <Compile Include="Assets\Scripts\AI\Bridge\SceneRuntimeBinder.cs" />
+    <Compile Include="Assets\Scripts\SceneLoader.cs" />
+    <Compile Include="Assets\Scripts\AI\Tags\AITagDatabase.cs" />
     <Compile Include="Assets\GUI Kit - Neon\Scripts\PanelControlNeon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\Daz3D\Shaders\Invisible.shader" />
+    <None Include="Assets\Reallusion\CCiC Unity Tools\URP\Preview Scene\RL_Amplify_PreviewGradientSkyboxShader.shader" />
+    <None Include="Assets\Animations\Raw\idle_sexy_ImportInfo.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - License.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\Reallusion\CCiC Unity Tools\URP\Shaders\Amplify\HQ\RL5_Amplify_SkinShader_Variants_URP.shader" />
+    <None Include="Assets\Animations\Raw\chair_ImportInfo.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Unity - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
-    <None Include="Assets\Daz3D\Shaders\uDTU\GetLightDirectionURP.hlsl" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - AFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\StreamingAssets\Dialogues\Actions.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Hero\CamilaV2_ImportInfo.txt" />
+    <None Include="Assets\Animations\Raw\Camila_Morphs_ImportInfo.txt" />
+    <None Include="Assets\Hero\Char1_ImportInfo.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\GUI Kit - Neon\+Document README+\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
+    <None Include="Assets\Animations\Raw\CamilaMorphs_ImportInfo.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Reallusion\CCiC Unity Tools\URP\Material Templates\notes.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Reallusion\CCiC Unity Tools\URP\Shaders\Amplify\Baked\RL5_Amplify_SkinShader_Baked_3D.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Animations\Raw\PointC_ImportInfo.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Reallusion\CCiC Unity Tools\Textures\RL_WrinkleMask_Set_TextureArray_info.txt" />
+    <None Include="Assets\Reallusion\CCiC Unity Tools\URP\Shaders\Amplify\Baked\Tessellation\RL5_Amplify_SkinShader_Baked_3D_Tessellation.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\Daz3D\Shaders\Helpers\GetLightDirection.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\Reallusion\CCiC Unity Tools\URP\Shaders\Amplify\HQ\Tessellation\RL5_Amplify_SkinShader_Variants_URP_Tessellation.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\Daz3D\Resources\ReadMe.txt" />
+    <None Include="Assets\Hero\Camila_ImportInfo.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
@@ -1141,12 +1216,20 @@
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Animation.Rigging.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Cinemachine.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Cinemachine.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime.Shared">
@@ -1185,12 +1268,20 @@
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Center.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Splines">
+      <HintPath>Library\ScriptAssemblies\Unity.Splines.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Mathematics.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.GPUDriven.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Unity.Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Collections">
@@ -1213,12 +1304,20 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Splines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Collections.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Collections.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
@@ -1267,6 +1366,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Settings.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Settings.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
@@ -1319,9 +1422,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="SimpleJSON.csproj">
-      <Project>{D71A69A0-A737-9C52-8C72-826F87F9AF6D}</Project>
-      <Name>SimpleJSON</Name>
+    <ProjectReference Include="soupday.cc3_unity_tools.project_runtime.csproj">
+      <Project>{B2F0D217-54D0-A7C8-671F-B55F8077A92B}</Project>
+      <Name>soupday.cc3_unity_tools.project_runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="soupday.cc3_unity_tools.runtime.csproj">
+      <Project>{1EEFE6AF-181E-8F8C-19A7-FEDD462A42B4}</Project>
+      <Name>soupday.cc3_unity_tools.runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="soupday.cc3_unity_tools.editor.csproj">
+      <Project>{F770364B-5B52-FC45-2607-84BE088165CB}</Project>
+      <Name>soupday.cc3_unity_tools.editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

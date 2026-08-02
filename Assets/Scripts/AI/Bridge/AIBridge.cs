@@ -9,6 +9,9 @@ public class AIBridge : MonoBehaviour
     [SerializeField]
     private AIInteractionSession currentSession;
 
+    private AISessionBlueprint currentBlueprint;
+    private AISessionDirector sessionDirector;
+
     [SerializeField]
     private AITagDatabase tagDatabase;
 
@@ -46,6 +49,20 @@ public class AIBridge : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Temporary compatibility binding for the legacy provider/execution path.
+    /// Future architecture must consume Session Snapshots rather than cache Session state here.
+    /// </summary>
+    public void SetSession(
+        AIInteractionSession session,
+        AISessionBlueprint resolvedBlueprint,
+        AISessionDirector owningDirector)
+    {
+        currentBlueprint = resolvedBlueprint;
+        sessionDirector = owningDirector;
+        SetSession(session);
+    }
+
     public void StartSession()
     {
         Debug.Log("[AIBridge] StartSession called");
@@ -62,9 +79,9 @@ public class AIBridge : MonoBehaviour
             return;
         }
 
-        if (currentSession.Blueprint == null)
+        if (currentBlueprint == null)
         {
-            Debug.LogError("[AIBridge] Cannot start session: session.Blueprint is null.");
+            Debug.LogError("[AIBridge] Cannot start session: resolved Blueprint is null.");
             return;
         }
 
@@ -86,9 +103,9 @@ public class AIBridge : MonoBehaviour
             Debug.LogError("[AIBridge] Cannot request AI response: session is null.");
             return;
         }
-        if (currentSession.Blueprint == null)
+        if (currentBlueprint == null)
         {
-            Debug.LogError("[AIBridge] Cannot request AI response: session.Blueprint is null.");
+            Debug.LogError("[AIBridge] Cannot request AI response: resolved Blueprint is null.");
             return;
         }
         if (string.IsNullOrWhiteSpace(currentSession.CurrentChapterId))
@@ -97,7 +114,19 @@ public class AIBridge : MonoBehaviour
             return;
         }
 
-        var response = provider.GetAIDirectorResponse();
+        if (sessionDirector == null || sessionDirector.CurrentSnapshot == null)
+        {
+            Debug.LogError("[AIBridge] Cannot request AI response: Session Snapshot is unavailable.");
+            return;
+        }
+
+        var request = AIContextBuilder.BuildRequest(
+            sessionDirector.CurrentSnapshot,
+            currentBlueprint,
+            string.Empty,
+            string.Empty,
+            tagDatabase);
+        var response = provider.GetAIDirectorResponse(request);
         ProcessResponse(response);
     }
 
@@ -118,13 +147,13 @@ public class AIBridge : MonoBehaviour
             return;
         }
 
-        if (currentSession != null)
+        if (sessionDirector != null)
         {
-            currentSession.AddConversationTurn("NPC", response.TextLine, response.ConversationIntent ?? string.Empty);
+            sessionDirector.RecordNpcConversationTurn(response.TextLine, response.ConversationIntent);
         }
         else
         {
-            Debug.LogWarning("[AIBridge] currentSession is not assigned; NPC turn will not be recorded.");
+            Debug.LogWarning("[AIBridge] Session Director is not assigned; NPC turn will not be recorded.");
         }
 
         lastResponse = response;
@@ -148,6 +177,11 @@ public class AIBridge : MonoBehaviour
 
             RouteAnimation(response);
         }
+
+        if (sessionDirector != null && string.Equals(response.GameplayCommand, "EndSession", System.StringComparison.Ordinal))
+        {
+            sessionDirector.EndSession();
+        }
     }
 
     private void HandlePlayerIntentSelected(string intentTag)
@@ -166,16 +200,33 @@ public class AIBridge : MonoBehaviour
             return;
         }
 
+        if (sessionDirector == null)
+        {
+            Debug.LogError("[AIBridge] Session Director is not assigned; cannot record player input.");
+            return;
+        }
+
         var selectedText = FindOptionText(intentTag);
-        currentSession.AddConversationTurn("Player", selectedText, intentTag ?? string.Empty);
-        currentSession.TurnIndex++;
-        Debug.Log($"[AIInteractionSession] Turn index: {currentSession.TurnIndex}");
+        var selectedOptionId = FindOptionId(intentTag);
+        var playerIntent = new AIPlayerIntent(intentTag, selectedOptionId, selectedText);
+        if (!sessionDirector.RecordPlayerConversationTurn(playerIntent))
+            return;
 
-        string previousChapterId;
-        string nextChapterId;
-        var moved = sessionFlowController.TryMoveToNextChapter(currentSession, intentTag, out previousChapterId, out nextChapterId);
+        if (!sessionDirector.AdvanceTurnIndex())
+            return;
 
-        var request = AIContextBuilder.BuildRequest(currentSession, intentTag, selectedText, tagDatabase);
+        var transition = sessionFlowController.ResolveNextChapter(currentSession, currentBlueprint, intentTag);
+        if (transition.Succeeded)
+            sessionDirector.CommitLegacyChapterTransition(transition);
+        else
+            Debug.Log($"[AIBridge] Chapter unchanged: {transition.FailureReason}");
+
+        var request = AIContextBuilder.BuildRequest(
+            sessionDirector.CurrentSnapshot,
+            currentBlueprint,
+            intentTag,
+            selectedText,
+            tagDatabase);
         if (request == null)
         {
             Debug.LogWarning("[AIBridge] AIContextBuilder returned null; aborting continuation.");
@@ -212,6 +263,20 @@ public class AIBridge : MonoBehaviour
                 if (!string.IsNullOrWhiteSpace(option.Label))
                     return option.Label;
             }
+        }
+
+        return string.Empty;
+    }
+
+    private string FindOptionId(string intentTag)
+    {
+        if (lastResponse?.PlayerOptions == null)
+            return string.Empty;
+
+        foreach (var option in lastResponse.PlayerOptions)
+        {
+            if (option != null && string.Equals(option.IntentTag, intentTag, System.StringComparison.OrdinalIgnoreCase))
+                return option.OptionId ?? string.Empty;
         }
 
         return string.Empty;

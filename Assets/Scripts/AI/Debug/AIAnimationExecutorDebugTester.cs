@@ -9,8 +9,16 @@ public class AIAnimationExecutorDebugTester : MonoBehaviour
     [SerializeField]
     private string[] requestedTags;
 
+    [SerializeField]
+    private bool autoRunOnStart = false;
+
     private void Start()
     {
+        if (!autoRunOnStart)
+        {
+            return;
+        }
+
         if (requestedTags == null || requestedTags.Length == 0)
         {
             requestedTags = new[] { "slow_controlled", "loop" };

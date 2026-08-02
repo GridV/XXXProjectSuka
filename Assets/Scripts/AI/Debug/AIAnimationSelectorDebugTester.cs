@@ -3,8 +3,14 @@ using UnityEngine;
 // Debug tester for AIAnimationSelector.
 public class AIAnimationSelectorDebugTester : MonoBehaviour
 {
+    [SerializeField]
+    private bool autoRunOnStart = false;
+
     void Start()
     {
+        if (!autoRunOnStart)
+            return;
+
         TestSelector(new[] { "slow_controlled", "loop" }, "Test 1");
         TestSelector(new[] { "fast_intense" }, "Test 2");
         TestSelector(new[] { "come_close" }, "Test 3");

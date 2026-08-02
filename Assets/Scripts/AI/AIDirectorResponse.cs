@@ -13,6 +13,7 @@ public class AIDirectorResponse
     public string ExpressionTag;
     public string BodyIntent;
     public string GameplayCommand;
+    public string AnimationDirective;
     public string NextChapterId;
     public string CameraIntent;
 
